@@ -1,47 +1,33 @@
 $(() => {
 
-  const $world = $('.world')
-  const $square = $('div .square')
-  const $empty = $('.empty')
+  //variables
+  let gameOver = false
+  const row = 6
+  const column = 7
+  const $board = $('.board')
 
-  const group = [
-    [0,0,0,1,1,0,0,0],
-    [0,0,0,1,1,0,0,0],
-    [0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0]
-  ]
-
-  //add shapes
-
-
-  function checkW () {
-    $world.text('')
-    group.forEach(function(y){
-      console.log(y)
-      y.forEach(function(x){
-        console.log(x)
-        if(y, x === 0) {
-          $world.append($square.clone())
-        } else {
-          $world.append($empty.clone())
-        }
-      })
-    })
+  //append grid & append coloumn to row & append row to board
+  //loop to create grid
+  function grid() {
+    for (let r = 0; r < row; r++) {
+      const $row = $('<div>')
+        .addClass('row')
+      for (let c = 0; c < column; c++) {
+        const $col = $('<div>')
+          .addClass('column')
+        $row.append($col)
+      }
+      $board.append($row)
+    }
   }
 
-  checkW()
+  grid()
 
-  //add event listener to move the shapes down
 
+  //event listeners
+  //mouseenter & add class
+  //mouseleave & remove class
+  //alternate between two players
   //win condition
-  // - if line is filled then remove line
-  // - shift tetrimidos down
-  // - add scores
 
 })
