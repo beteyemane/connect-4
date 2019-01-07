@@ -44,6 +44,7 @@ $(() => {
 
     setIndicies.forEach(set => {
       const colors = set.map(index => $('.grid div').eq(index).attr('class').replace('column ', ''))
+      console.log(colors)
       const toggle = colors.every(color => color === player)
       // console.log(toggle)
       if (toggle === true) {
