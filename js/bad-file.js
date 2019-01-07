@@ -43,7 +43,7 @@ $(() => {
       const toggle = colors.every(color => color === player)
       // console.log(toggle)
       if (toggle === true) {
-        $turn.text(`${player} wins!`)
+        alert(`${player} wins!`)
       }
 
     })
@@ -55,8 +55,7 @@ $(() => {
   const rows = 6
   let $col = 0
   let index = 0
-  let player = 'Red'
-  const $turn = $('.turn')
+  let player = 1
 
   //---------------------------------------------------------------------MAKE GRID------------------------------------------------------------------------------------
 
@@ -74,7 +73,7 @@ $(() => {
   function findAvailableSpace(c) {
     const space = $(`.column[data-column='${c}']`)
 
-    console.log(c - 1)
+    console.log(c)
 
     const noOfCols = 41
     for (let i =  c; i < noOfCols ; i += columns) {
@@ -94,22 +93,22 @@ $(() => {
   //-------------------------------------------------------------------------GAME-------------------------------------------------------------------------------------
 
   function game() {
-    $turn.text(`${player}'s turn!'`)
+    alert(`${player}'s turn!'`)
     $grid.on('click', '.column.none', function() {
       const c = $(this).data('column')
 
       const $availableSpace = findAvailableSpace(c)
       $availableSpace.removeClass('none')
       //ALTERNATE BETWEEN TWO PLAYERS
-      if(player === 'Red') {
+      if(player === 1) {
         $availableSpace.addClass('red')
-        player = 'Yellow'
-        $turn.text(`${player}'s turn!`)
+        player++
+        alert(`${player}'s turn!'`)
         checkForWin('red')
       } else {
         $availableSpace.addClass('yellow')
-        player = 'Red'
-        $turn.text(`${player}'s turn!`)
+        player--
+        alert(`${player}'s turn!'`)
         checkForWin('yellow')
       }
     })
