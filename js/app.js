@@ -38,6 +38,10 @@ $(() => {
     // loop through the setIndicies array
     // get each set of DOMElements,
     // check whether there are 4 of a kind
+
+    //check if -1, 1 etc have class of red and yellow
+
+
     setIndicies.forEach(set => {
       const colors = set.map(index => $('.grid div').eq(index).attr('class').replace('column ', ''))
       const toggle = colors.every(color => color === player)
@@ -57,6 +61,7 @@ $(() => {
   let index = 0
   let player = 'Red'
   const $turn = $('.turn')
+  const width = 41
 
   //---------------------------------------------------------------------MAKE GRID------------------------------------------------------------------------------------
 
@@ -70,18 +75,30 @@ $(() => {
   }
 
   //---------------------------------------------------------------------FIND LAST SPACE------------------------------------------------------------------------------
+  const directions = [- columns - 1, - columns, - columns + 1, - 1, 0, + 1, + columns - 1, + columns, + columns + 1  ]
 
-  function findAvailableSpace(c) {
+  function findAvailableSpace(c, player) {
     const space = $(`.column[data-column='${c}']`)
+    let $id = c
 
-    console.log(c - 1)
+    // console.log(directions)
 
-    const noOfCols = 41
-    for (let i =  c; i < noOfCols ; i += columns) {
+    // console.log($id - columns - 1, $id - columns, $id - columns + 1, $id -1,  17, $id + 1, $id + columns - 1, $id + columns, $id + columns + 1)
+
+    for (let i = 0; i < directions.length; i++) {
+      let list = []
+      const $newID = $id + directions[i]
+      console.log($newID)
+      console.log()
+    }
+
+
+
+    for (let i =  c; i < width ; i += columns) {
       const $space = $(`.column[data-column='${i + columns}']`)
       const $nextSpace = $(`.column[data-column='${i + columns + columns}']`)
-      console.log('for loop', $space, i + columns)
-      if($nextSpace.hasClass('red') || $nextSpace.hasClass('yellow') || i + columns + columns > noOfCols) {
+      // console.log('for loop', $space, i + columns)
+      if($nextSpace.hasClass('red') || $nextSpace.hasClass('yellow') || i + columns + columns > width) {
         if($space.hasClass('red') || $space.hasClass('yellow')) {
           return space
         }
@@ -90,7 +107,13 @@ $(() => {
     }
     return null
   }
+  //---------------------------------------------------------------------------
 
+  function findWinner(c) {
+
+
+  }
+  findWinner()
   //-------------------------------------------------------------------------GAME-------------------------------------------------------------------------------------
 
   function game() {
@@ -112,8 +135,11 @@ $(() => {
         $turn.text(`${player}'s turn!`)
         checkForWin('yellow')
       }
+      // if ((c - (columns - 1 - 1)).hasClass('red || yellow')) {
+      //   console.log('HI')
+      //
+      // }
     })
-
   }
 
   game()
