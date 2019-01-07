@@ -1,13 +1,36 @@
 
 /*# sourceMappingURL=style.css.map */
 
-* {
-  box-sizing: border-box;
-}
-
 .container {
   display: flex;
   justify-content: center;
+}
+
+.board {
+  background-color: #2B9BED;
+  display: inline-block;
+  border-radius: 5%;
+}
+
+.column {
+  height: 65px;
+  width: 65px;
+  display: inline-block;
+  border-radius: 50%;
+  background-color: white;
+  margin: 10px;
+  flex-grow: 1;
+  flex-wrap: wrap;
+}
+
+.column.none {
+  cursor: pointer;
+}
+
+.board[data-width="10"] div {
+  flex-grow: 1;
+  height: 10%;
+  width: 10%;
 }
 
 h1 {
@@ -16,33 +39,6 @@ h1 {
   font-family: 'Righteous', cursive;
   font-size: 75px;
 }
-
-
-.grid {
-  align-items: center;
-  background-color: #2B9BED;
-  border-radius: 5%;
-  display: flex;
-  flex-grow: 1;
-  flex-wrap: wrap;
-  height: 100%;
-  justify-content: center;
-  max-height: 600px;
-  max-width: 600px;
-}
-
-.column {
-  height: 65px;
-  width: 65px;
-  border-radius: 50%;
-  background-color: white;
-  margin: 10px;
-}
-
-.column.none {
-  cursor: pointer;
-}
-
 
 .red {
   background-color: red;

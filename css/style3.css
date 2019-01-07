@@ -1,6 +1,7 @@
 
 /*# sourceMappingURL=style.css.map */
 
+/* new css */
 * {
   box-sizing: border-box;
 }
@@ -58,4 +59,8 @@ h1 {
 
 .shadow-yellow {
   background-color: rgba(255, 255, 0, 0.5);
+}
+
+.blue {
+  background-color: blue;
 }
