@@ -77,7 +77,7 @@ $(() => {
   //---------------------------------------------------------------------FIND LAST SPACE------------------------------------------------------------------------------
   const directions = [- columns - 1, - columns, - columns + 1, - 1, 0, + 1, + columns - 1, + columns, + columns + 1  ]
 
-  function findAvailableSpace(c, player) {
+  function findAvailableSpace(c) {
     const space = $(`.column[data-column='${c}']`)
     let $id = c
 
@@ -85,14 +85,14 @@ $(() => {
 
     // console.log($id - columns - 1, $id - columns, $id - columns + 1, $id -1,  17, $id + 1, $id + columns - 1, $id + columns, $id + columns + 1)
 
+
+
     for (let i = 0; i < directions.length; i++) {
       let list = []
       const $newID = $id + directions[i]
       console.log($newID)
       console.log()
     }
-
-
 
     for (let i =  c; i < width ; i += columns) {
       const $space = $(`.column[data-column='${i + columns}']`)
