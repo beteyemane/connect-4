@@ -55,7 +55,10 @@ $(() => {
   const rows = 6
   let $col = 0
   let index = 0
-  let player = 1
+  let player = 'Red'
+  const $turn = $('.turn')
+
+  console.log($turn)
 
   //---------------------------------------------------------------------MAKE GRID------------------------------------------------------------------------------------
 
@@ -93,22 +96,22 @@ $(() => {
   //-------------------------------------------------------------------------GAME-------------------------------------------------------------------------------------
 
   function game() {
-    alert(`${player}'s turn!'`)
+    $turn.text(`${player}'s turn!`)
     $grid.on('click', '.column.none', function() {
       const c = $(this).data('column')
 
       const $availableSpace = findAvailableSpace(c)
       $availableSpace.removeClass('none')
       //ALTERNATE BETWEEN TWO PLAYERS
-      if(player === 1) {
+      if(player === 'Red') {
         $availableSpace.addClass('red')
-        player++
-        alert(`${player}'s turn!'`)
+        player = 'Yellow'
+        $turn.text(`${player}'s turn!`)
         checkForWin('red')
       } else {
         $availableSpace.addClass('yellow')
-        player--
-        alert(`${player}'s turn!'`)
+        player = 'Red'
+        $turn.text(`${player}'s turn!`)
         checkForWin('yellow')
       }
     })
