@@ -1,59 +1,4 @@
 $(() => {
-
-  const setIndicies = [
-    //row one
-    [0,1,2,3],
-    [1,2,3,4],
-    [2,3,4,5],
-    [3,4,5,6],
-    //row two
-    [7,8,9,10],
-    [8,9,10,11],
-    [9,10,11,12],
-    [10,11,12,13],
-    //row three
-    [14,15,16,17],
-    [15,16,17,18],
-    [16,17,18,19],
-    [17,18,19,20],
-    //row four
-    [21,22,23,24],
-    [22,23,24,25],
-    [23,24,25,26],
-    [24,25,26,27],
-    //row five
-    [27,28,29,30],
-    [28,29,30,31],
-    [29,30,31,32],
-    [30,31,32,33],
-    //row six
-    [34,35,36,37],
-    [35,36,37,38],
-    [36,37,38,39],
-    [37,38,39,40],
-    [38,39,40,41]
-  ]
-
-  // function checkForWin(player) {
-  //   // loop through the setIndicies array
-  //   // get each set of DOMElements,
-  //   // check whether there are 4 of a kind
-  //
-  //   //check if -1, 1 etc have class of red and yellow
-  //
-  //
-  //   setIndicies.forEach(set => {
-  //     const colors = set.map(index => $('.grid div').eq(index).attr('class').replace('column ', ''))
-  //     // console.log(set)
-  //     const toggle = colors.every(color => color === player)
-  //     // console.log(toggle)
-  //     if (toggle === true) {
-  //       $turn.text(`${player} wins!`)
-  //     }
-  //
-  //   })
-  // }
-
   //---------------------------------------------------------------------VARIABLES------------------------------------------------------------------------------------
 
   const columns = 7
@@ -81,6 +26,7 @@ $(() => {
     $grid.append($col)
   }
 
+  const $cells = $grid.children()
   //---------------------------------------------------------------------FIND LAST SPACE------------------------------------------------------------------------------
   function findAvailableSpace(c) {
     space = $(`.column[data-column='${c}']`)
@@ -100,11 +46,38 @@ $(() => {
   }
 
   //------------------------------------------------------------------------ WIN-----------------------------------------------------------
+  const vectors = [-1, +1, columns-1, columns, columns+1]
+
+  function getStartIndex(index, vector) {
+    const newIndex = index + vector
+    if ($cells.eq(newIndex).hasClass(player)){
+      return getStartIndex(newIndex, vector)
+    }
+    if (!($cells.eq(newIndex)).hasClass(player)) {
+      return index
+    }
+  }
+
+  function getFourCells(index, vector) {
+    const cellsToCheck = []
+    for (let i = 0; i < 4; i++) {
+      cellsToCheck.push($cells.eq(index+(vector * i)))
+    }
+    return cellsToCheck
+  }
+
+  function checkForWin(index) {
+    return vectors.some(vector => {
+      const startIndex = getStartIndex(index, -vector)
+      const $cellsToCheck = getFourCells(startIndex, vector)
+      return $cellsToCheck.every($cell => $cell.hasClass(player))
+    })
+
+  }
 
   //-------------------------------------------------------------------------GAME-------------------------------------------------------------------------------------
 
   function game() {
-
     // $startButton.on('click', function() {
     //   $startButton.show()
     // })
@@ -115,52 +88,26 @@ $(() => {
 
       $availableSpace = findAvailableSpace(c)
       $availableSpace.removeClass('none')
-      //ALTERNATE BETWEEN TWO PLAYERS
-      if(player === 'red') {
-        $availableSpace.addClass('red')
-        player = 'yellow'
-        $turn.text(`${player}'s turn!`)
-        // checkForWin('red')
-      } else {
-        $availableSpace.addClass('yellow')
-        player = 'red'
-        $turn.text(`${player}'s turn!`)
-        // checkForWin('yellow')
-      }
+      $availableSpace.addClass(player)
+
       //INDEX
       const index = $availableSpace.index()
       //VECTOR
-      const vector = [- 1, + 1, + columns - 1, + columns, + columns + 1]
 
-      function getStartCell(index, vector) {
-
-        for (let i = 0; i < vector.length; i++) {
-          const newVector = index + vector[i]
-          console.log(player)
-          if($availableSpace.eq(newVector).hasClass(`${player}`)){
-            console.log('match found')
-          }
-          if(!($availableSpace.eq(newVector)).hasClass(`${player}`)) {
-            console.log('no match')
-          }
-        }
-
-        console.log('THE INDEX', index)
-        console.log('THE VECTOR', vector)
-
-
-        // if(the cell at index + vector is not the players color) {
-        //return index } else return getStartCell(index + vector, vector)
-        // }
+      if(checkForWin(index)) {
+        // do something to end the game...
+        console.log(`Player ${player} has won!`)
+        // stop the game
       }
-      console.log(getStartCell(index, vector))
 
-      function getFourCells(index, vector) {
-        const cells = []
-        for (let i = 0; i < 4; i++) {
-          cells.push(index+(vector * i))
-        }
+      //ALTERNATE BETWEEN TWO PLAYERS
+      if(player === 'red') {
+        player = 'yellow'
+      } else {
+        player = 'red'
       }
+
+      $turn.text(`${player}'s turn!`)
     })
   }
 
