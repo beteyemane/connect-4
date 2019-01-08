@@ -31,7 +31,7 @@ h1 {
   max-width: 600px;
 }
 
-.column {
+.circle {
   height: 65px;
   width: 65px;
   border-radius: 50%;
@@ -39,16 +39,16 @@ h1 {
   margin: 10px;
 }
 
-.column.none {
+.circle.none {
   cursor: pointer;
 }
 
 
-.red {
+.Red {
   background-color: red;
 }
 
-.yellow {
+.Yellow {
   background-color: yellow;
 }
 
