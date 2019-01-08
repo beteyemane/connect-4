@@ -65,6 +65,10 @@ $(() => {
   const width = 41
   const $startScreen = $('.start-screen')
   const $startButton = $('.start')
+  let space
+  let $space
+  let $nextSpace
+  let $availableSpace
 
   //---------------------------------------------------------------------MAKE GRID------------------------------------------------------------------------------------
 
@@ -79,10 +83,10 @@ $(() => {
 
   //---------------------------------------------------------------------FIND LAST SPACE------------------------------------------------------------------------------
   function findAvailableSpace(c) {
-    const space = $(`.column[data-column='${c}']`)
+    space = $(`.column[data-column='${c}']`)
     for (let i =  c; i <= width ; i += columns) {
-      const $space = $(`.column[data-column='${i + columns}']`)
-      const $nextSpace = $(`.column[data-column='${i + columns + columns}']`)
+      $space = $(`.column[data-column='${i + columns}']`)
+      $nextSpace = $(`.column[data-column='${i + columns + columns}']`)
       // console.log('for loop', $space, i + columns)
       if($nextSpace.hasClass('red') || $nextSpace.hasClass('yellow') || i + columns + columns > width) {
         if($space.hasClass('red') || $space.hasClass('yellow')) {
@@ -109,7 +113,7 @@ $(() => {
     $grid.on('click', '.column.none', function() {
       const c = $(this).data('column')
 
-      const $availableSpace = findAvailableSpace(c)
+      $availableSpace = findAvailableSpace(c)
       $availableSpace.removeClass('none')
       //ALTERNATE BETWEEN TWO PLAYERS
       if(player === 'Red') {
@@ -123,17 +127,30 @@ $(() => {
         $turn.text(`${player}'s turn!`)
         checkForWin('yellow')
       }
-
+      //INDEX
       const index = $availableSpace.index()
-      console.log(index)
+      //VECTOR
+      const vector = [- 1, + 1, + columns - 1, + columns, + columns + 1]
 
       function getStartCell(index, vector) {
-//         if(the cell at index + vector is not the players color) {
-//         return index } else return getStartCell(index + vector, vector)
-// }
 
+        for (let i = 0; i < vector.length; i++) {
+          const newIndex = index + vector[i]
+          console.log(newIndex)
+          if(newIndex && index !== player) {
+            console.log('check')
+          }
+        }
+
+        console.log('THE INDEX', index)
+        console.log('THE VECTOR', vector)
+
+
+        // if(the cell at index + vector is not the players color) {
+        //return index } else return getStartCell(index + vector, vector)
+        // }
       }
-      // console.log(index - columns - 1)
+      console.log(getStartCell(index, vector))
 
       function getFourCells(index, vector) {
         const cells = []
