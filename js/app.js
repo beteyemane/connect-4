@@ -34,25 +34,25 @@ $(() => {
     [38,39,40,41]
   ]
 
-  function checkForWin(player) {
-    // loop through the setIndicies array
-    // get each set of DOMElements,
-    // check whether there are 4 of a kind
-
-    //check if -1, 1 etc have class of red and yellow
-
-
-    setIndicies.forEach(set => {
-      const colors = set.map(index => $('.grid div').eq(index).attr('class').replace('column ', ''))
-      // console.log(set)
-      const toggle = colors.every(color => color === player)
-      // console.log(toggle)
-      if (toggle === true) {
-        $turn.text(`${player} wins!`)
-      }
-
-    })
-  }
+  // function checkForWin(player) {
+  //   // loop through the setIndicies array
+  //   // get each set of DOMElements,
+  //   // check whether there are 4 of a kind
+  //
+  //   //check if -1, 1 etc have class of red and yellow
+  //
+  //
+  //   setIndicies.forEach(set => {
+  //     const colors = set.map(index => $('.grid div').eq(index).attr('class').replace('column ', ''))
+  //     // console.log(set)
+  //     const toggle = colors.every(color => color === player)
+  //     // console.log(toggle)
+  //     if (toggle === true) {
+  //       $turn.text(`${player} wins!`)
+  //     }
+  //
+  //   })
+  // }
 
   //---------------------------------------------------------------------VARIABLES------------------------------------------------------------------------------------
 
@@ -60,7 +60,7 @@ $(() => {
   const rows = 6
   let $col = 0
   let index = 0
-  let player = 'Red'
+  let player = 'red'
   const $turn = $('.turn')
   const width = 41
   const $startScreen = $('.start-screen')
@@ -116,16 +116,16 @@ $(() => {
       $availableSpace = findAvailableSpace(c)
       $availableSpace.removeClass('none')
       //ALTERNATE BETWEEN TWO PLAYERS
-      if(player === 'Red') {
+      if(player === 'red') {
         $availableSpace.addClass('red')
-        player = 'Yellow'
+        player = 'yellow'
         $turn.text(`${player}'s turn!`)
-        checkForWin('red')
+        // checkForWin('red')
       } else {
         $availableSpace.addClass('yellow')
-        player = 'Red'
+        player = 'red'
         $turn.text(`${player}'s turn!`)
-        checkForWin('yellow')
+        // checkForWin('yellow')
       }
       //INDEX
       const index = $availableSpace.index()
@@ -135,10 +135,13 @@ $(() => {
       function getStartCell(index, vector) {
 
         for (let i = 0; i < vector.length; i++) {
-          const newIndex = index + vector[i]
-          console.log(newIndex)
-          if(newIndex && index !== player) {
-            console.log('check')
+          const newVector = index + vector[i]
+          console.log(player)
+          if($availableSpace.eq(newVector).hasClass(`${player}`)){
+            console.log('match found')
+          }
+          if(!($availableSpace.eq(newVector)).hasClass(`${player}`)) {
+            console.log('no match')
           }
         }
 
