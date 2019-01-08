@@ -63,6 +63,8 @@ $(() => {
   let player = 'Red'
   const $turn = $('.turn')
   const width = 41
+  const $startScreen = $('.start-screen')
+  const $startButton = $('.start')
 
   //---------------------------------------------------------------------MAKE GRID------------------------------------------------------------------------------------
 
@@ -76,38 +78,15 @@ $(() => {
   }
 
   //---------------------------------------------------------------------FIND LAST SPACE------------------------------------------------------------------------------
-  const directions = [- columns - 1, - columns, - columns + 1, - 1, 0, + 1, + columns - 1, + columns, + columns + 1  ]
-
   function findAvailableSpace(c) {
     const space = $(`.column[data-column='${c}']`)
-    let $id = c
-
-    // console.log(directions)
-
-    // console.log($id - columns - 1, $id - columns, $id - columns + 1, $id -1,  17, $id + 1, $id + columns - 1, $id + columns, $id + columns + 1)
-
-
-    // for (let j =  c; j <= width ; j += columns) {
-    for (let i = 0; i < directions.length; i++) {
-      let list = []
-      const $newID = $id + directions[i]
-      console.log($newID)
-      const $newData = $(`.column[data-column='${$newID}']`)
-      // console.log($newData)
-      // console.log(player)
-      if(player === 'Red' && $newData.hasClass('red') || player === 'Yellow' && $newData.hasClass('yellow')) {
-        console.log(`${player} won!`)
-        list.push(player)
-      }
-    }
-    // }
     for (let i =  c; i <= width ; i += columns) {
-      // console.log(i)
       const $space = $(`.column[data-column='${i + columns}']`)
       const $nextSpace = $(`.column[data-column='${i + columns + columns}']`)
       // console.log('for loop', $space, i + columns)
       if($nextSpace.hasClass('red') || $nextSpace.hasClass('yellow') || i + columns + columns > width) {
         if($space.hasClass('red') || $space.hasClass('yellow')) {
+          console.log('match')
           return space
         }
         return $space
@@ -115,11 +94,17 @@ $(() => {
     }
     return null
   }
-  //---------------------------------------------------------------------------
+
+  //------------------------------------------------------------------------ WIN-----------------------------------------------------------
 
   //-------------------------------------------------------------------------GAME-------------------------------------------------------------------------------------
 
   function game() {
+
+    // $startButton.on('click', function() {
+    //   $startButton.show()
+    // })
+
     $turn.text(`${player}'s turn!'`)
     $grid.on('click', '.column.none', function() {
       const c = $(this).data('column')
@@ -138,10 +123,24 @@ $(() => {
         $turn.text(`${player}'s turn!`)
         checkForWin('yellow')
       }
-      // if ((c - (columns - 1 - 1)).hasClass('red || yellow')) {
-      //   console.log('HI')
-      //
-      // }
+
+      const index = $availableSpace.index()
+      console.log(index)
+
+      function getStartCell(index, vector) {
+//         if(the cell at index + vector is not the players color) {
+//         return index } else return getStartCell(index + vector, vector)
+// }
+
+      }
+      // console.log(index - columns - 1)
+
+      function getFourCells(index, vector) {
+        const cells = []
+        for (let i = 0; i < 4; i++) {
+          cells.push(index+(vector * i))
+        }
+      }
     })
   }
 

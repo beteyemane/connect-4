@@ -73,3 +73,10 @@ h1 {
   text-align: center;
   font-size: 45px;
 }
+
+.start-screen {
+background-color: black;
+width: 900px;
+height: 900px;
+display: none;
+}

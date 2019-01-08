@@ -54,6 +54,26 @@ $(() => {
     })
   }
 
+  const $availableSpace = findAvailableSpace(c)
+
+  // console.log($id - columns - 1, $id - columns, $id - columns + 1, $id -1,  17, $id + 1, $id + columns - 1, $id + columns, $id + columns + 1)
+
+  // //DIRECTIONS
+  // const directions = [- columns - 1, - columns, - columns + 1, - 1, 0, + 1, + columns - 1, + columns, + columns + 1]
+  // //LOOP DIRECTION LENGTH
+  // for (let i = 0; i < directions.length; i++) {
+  // //DIRECTION ON CIRCLE CLICKED
+  //   const $newID = $id + directions[i]
+  //   const $newData = $(`.column[data-column='${$newID}']`)
+  //   //CIRCLE
+  //   const $secondData = $(`.column[data-column='${$id}']`)
+  //
+  //   if($newData.hasClass('red') && $secondData.hasClass('red') || $newData.hasClass('yellow') && $secondData.hasClass('yellow')) {
+  //     // console.log('match')
+  //   }
+  // }
+
+
   //---------------------------------------------------------------------VARIABLES------------------------------------------------------------------------------------
 
   const columns = 7
