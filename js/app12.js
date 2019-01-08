@@ -76,38 +76,69 @@ $(() => {
   }
 
   //---------------------------------------------------------------------FIND LAST SPACE------------------------------------------------------------------------------
-  const directions = [- columns - 1, - columns, - columns + 1, - 1, 0, + 1, + columns - 1, + columns, + columns + 1  ]
 
   function findAvailableSpace(c) {
     const space = $(`.column[data-column='${c}']`)
     let $id = c
 
+    const directions = [- columns - 1, - columns, - columns + 1, - 1, 0, + 1, + columns - 1, + columns, + columns + 1  ]
     // console.log(directions)
 
     // console.log($id - columns - 1, $id - columns, $id - columns + 1, $id -1,  17, $id + 1, $id + columns - 1, $id + columns, $id + columns + 1)
 
 
-    // for (let j =  c; j <= width ; j += columns) {
-    for (let i = 0; i < directions.length; i++) {
-      let list = []
-      const $newID = $id + directions[i]
-      console.log($newID)
-      const $newData = $(`.column[data-column='${$newID}']`)
-      // console.log($newData)
-      // console.log(player)
-      if(player === 'Red' && $newData.hasClass('red') || player === 'Yellow' && $newData.hasClass('yellow')) {
-        console.log(`${player} won!`)
-        list.push(player)
+    function checkWin(c) {
+      const space = $(`.column[data-column='${c}']`)
+      let $id = c
+      for (let i = 0; i < directions.length; i++) {
+        const list = []
+        console.log(list)
+        const $newID = $id + directions[i]
+        console.log($newID)
+        const $newData = $(`.column[data-column='${$newID}']`)
+        console.log($newData)
+        if(player === 'Red' && $newData.hasClass('red') || player === 'Yellow' && $newData.hasClass('yellow')) {
+          list.push(player)
+        } else {
+          return
+        }
+        if(list.length === 4) {
+          console.log('game over')
+        }
       }
     }
+    checkWin(c)
+    // for (let j =  0; j <= width[j] ; j++) {
+    //   // console.log(player)
+    //     // console.log('hey')
+    //   }
+    //   }
     // }
+
+    // function checkWin(c) {
+    //   const space = $(`.column[data-column='${c}']`)
+    //   let $id = c
+    //   console.log($id)
+    //   for(let i = $id; i <= width; i++) {
+    //     const $newID = $id + directions[i]
+    //     console.log($newID)
+    //     const $newData = $(`.column[data-column='${$newID}']`)
+    //     // console.log($newData)
+    //   }
+    //   for (let i = 0; i < directions.length; i++) {
+    //     let list = []
+    //   }
+    // }
+    //
+    // checkWin(c)
     for (let i =  c; i <= width ; i += columns) {
-      // console.log(i)
+
       const $space = $(`.column[data-column='${i + columns}']`)
       const $nextSpace = $(`.column[data-column='${i + columns + columns}']`)
       // console.log('for loop', $space, i + columns)
       if($nextSpace.hasClass('red') || $nextSpace.hasClass('yellow') || i + columns + columns > width) {
         if($space.hasClass('red') || $space.hasClass('yellow')) {
+
           return space
         }
         return $space
