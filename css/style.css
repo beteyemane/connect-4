@@ -145,8 +145,8 @@ img {
 }
 
 .sound, .restart {
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
   background-color: rgb(64, 151, 250);
   border-radius: 10px;
   box-shadow: 0 4px rgba(0, 0, 0, 0.1);

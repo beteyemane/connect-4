@@ -12,11 +12,39 @@ $(() => {
   const $compPlayerButton = $('.computer-player')
   const $scoreScreen = $('.score-screen')
   const $restart = $('.restart')
+  const $sound = $('.sound')
   let player = 'Red'
   let space
   let $space
   let $nextSpace
   let $availableSpace
+  let index
+
+  // -------------------------------------------------------------------AUDIO----------------------------------------------------------------
+
+  // const myAudio = document.createElement('audio')
+  // myAudio.src = './audio/music.wav'
+  //
+  // myAudio.play()
+  //
+  // $sound.on('click', function(){
+  //   myAudio.pause()
+  // })
+
+
+  // for (var i = 0; i < $sound.length; i++) {
+  //   $sound[i].on('click', function() {
+  //     myAudio.currentTime = this.getAttribute('data-start')
+  //     stopTime = this.getAttribute('data-stop')
+  //     myAudio.play()
+  //   }, false)
+  // }
+
+  // myAudio.addEventListener('timeupdate', function() {
+  //   if (this.currentTime > stopTime) {
+  //     this.play()
+  //   }
+  // }, false)
   //---------------------------------------------------------------------MAKE GRID------------------------------------------------------------------------------------
   //create a 7 x 6 grid of divs and add a class of 'circle' to style. Also add a class of 'none' so we can later replace the class with the players' colored counter (either classs of red or yellow) to show it has been played.
   //add atrribute of data-circle and give them consecutive numbers so we can have them all numbered.
@@ -77,9 +105,8 @@ $(() => {
     // if ($cells.eq(newIndex).hasClass('yellow') || $cells.eq(newIndex).hasClass('red')) {
     //   console.log('done')
     // }
-
-
     if ($cells.eq(newIndex).hasClass(player)){
+
       return getStartIndex(newIndex, vector)
     }
     //if none of the directions that the played counter have also been played, tnen play counter
@@ -114,18 +141,19 @@ $(() => {
 
   //----------------------------------------------------------------GET RANDOM CHOICE----------------------------------------------------
 
-  // function getRandomNo(items) {
-  //   for(let i = 0; i <= columns; i++) {
-  //     return items[Math.floor(Math.random() * columns)]
-  //   }
-  // }
+
+  function getRandomNo(items) {
+    for(let i = 0; i <= columns; i++) {
+      return findAvailableSpace(items[Math.floor(Math.random() * columns)])
+    }
+  }
 
   const items = [columns - 3, columns - 2, columns - 1, columns, columns + 1, columns + 2, columns + 3]
-  console.log(items)
+  console.log(getRandomNo(items))
 
   //-------------------------------------------------------------------------GAME-------------------------------------------------------------------------------------
 
-  function game() {
+  function game(player2) {
 
     //updates board on page load
     $turn.text(`${player}'s turn!`)
@@ -133,13 +161,19 @@ $(() => {
     $grid.on('click', '.circle.none', function() {
       //index number for cells
 
-      const c = $(this).data('circle')
-      $availableSpace = findAvailableSpace(c)
-      $availableSpace.removeClass('none')
-      $availableSpace.addClass(player)
+      if(player2 === 'Yellow') {
+        const c = $(this).data('circle')
+        $availableSpace = findAvailableSpace(c)
+        $availableSpace.removeClass('none')
+        $availableSpace.addClass(player)
+        index = $availableSpace.index()
 
+      } else {
+        const computerChoice = getRandomNo(items)
+        findAvailableSpace(computerChoice)
+      }
 
-      const index = $availableSpace.index()
+      console.log($availableSpace)
 
 
       if(checkForWin(index)) {
@@ -149,7 +183,7 @@ $(() => {
       }
       //alternate between two players
       if(player === 'Red') {
-        player = 'Yellow'
+        player = player2
       } else {
         player = 'Red'
       }
@@ -157,7 +191,8 @@ $(() => {
     })
   }
 
-  game()
+  // game('Yellow')
+
 
   function main() {
     $onload.addClass('hide')
@@ -165,7 +200,13 @@ $(() => {
     $startButton.on('click', function() {
       $startScreen.addClass('hide')
       $playerScreen.removeClass('hide')
+      $compPlayerButton.on('click', function(){
+        game('computer')
+        $playerScreen.addClass('hide')
+        $onload.removeClass('hide')
+      })
       $twoPlayerButton.on('click', function(){
+        game('Yellow')
         $playerScreen.addClass('hide')
         $onload.removeClass('hide')
       })
