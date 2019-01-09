@@ -11,6 +11,7 @@ $(() => {
   const $twoPlayerButton = $('.two-player')
   const $compPlayerButton = $('.computer-player')
   const $scoreScreen = $('.score-screen')
+  const $restart = $('.restart')
   let player = 'Red'
   let space
   let $space
@@ -29,7 +30,9 @@ $(() => {
 
   //get the divs with classes from grid (children of the grid)
   const $cells = $grid.children()
-  console.log($cells)
+
+  // $cells.each(cell => console.log(cell))
+  // console.log()
   //---------------------------------------------------------------------FIND LAST SPACE------------------------------------------------------------------------------
   //create a function which will fill the class of player on the last available counter on the column that is clicked
   //add argument of c so we can call it when we call function
@@ -40,11 +43,16 @@ $(() => {
   //space is the circle you click on
     space = $(`.circle[data-circle='${c}']`)
     //loops for width length (42) then plus the consecutive numbers to columns
+    const randomNo = Math.floor(Math.random() * columns)
     for (let i =  c; i <= width ; i += columns) {
+      // console.log(randomNo)
       // adding length of columns(7) to consecutive number so we can find the circle a below in the column clicked
       $space = $(`.circle[data-circle='${i + columns}']`)
+
       //adding length of 'column' to length 'column' plus consec number. This is to find the circle two rows below
       $nextSpace = $(`.circle[data-circle='${i + columns + columns}']`)
+
+
       //if circle below has been played or nsdfn and circle two rows below has been played then put class circle clicked. if not just end
       if($nextSpace.hasClass('Red') || $nextSpace.hasClass('Yellow') || i + columns + columns > width) {
         if($space.hasClass('Red') || $space.hasClass('Yellow')) {
@@ -59,15 +67,17 @@ $(() => {
   //----------------------------------------------------------------GET COMPUTER CHOICE----------------------------------------------------
 
 
-
-
-function getComputerChoice() {
-    const choices = []
-    const randomNo = Math.floor(Math.random() * width)
-    console.log(choices[randomNo])
-  }
-
+  // function getComputerChoice() {
+  //   // console.log(randomNo)
+  //   for (let i =  0; i <= width ; i += columns) {
+  //     const $anyFreeSpace = $(`.circle[data-circle='${i + columns + randomNo}']`)
+  //     console.log(i += columns)
+  //   }
+  // }
+  //
+  // getComputerChoice()
   //------------------------------------------------------------------------ WIN-----------------------------------------------------------
+
   //create and array of "directions"
   const vectors = [-1, +1, columns-1, columns, columns+1]
   //create a function that takes in the index of played counter and the directions
@@ -96,10 +106,11 @@ function getComputerChoice() {
   }
 
 
+
   function checkForWin(index) {
   //loop through the directions
     return vectors.some(vector => {
-      //dont understand
+
       const startIndex = getStartIndex(index, -vector)
       const $cellsToCheck = getFourCells(startIndex, vector)
       return $cellsToCheck.every($cell => $cell.hasClass(player))
@@ -115,16 +126,37 @@ function getComputerChoice() {
     $turn.text(`${player}'s turn!`)
 
     $grid.on('click', '.circle.none', function() {
+      //index number for cells
       const c = $(this).data('circle')
       $availableSpace = findAvailableSpace(c)
       $availableSpace.removeClass('none')
       //getting index of the next available space
       const index = $availableSpace.index()
+      //need to minus the available space so it goes to the line before
       $availableSpace.addClass(player)
+
+
+      function getRandomNo(items) {
+        for(let i = 0; i < columns; i++) {
+          return items[Math.floor(Math.random() * columns)]
+        }
+      }
+
+      const items = [columns - 3, columns - 2, columns - 1, columns, columns + 1, columns + 2, columns + 3]
+      console.log(getRandomNo(items))
+
+
+
+      // compVectors.some(compVector => (index + compVector))
+
+
+
+
+
+
 
       if(checkForWin(index)) {
         // do something to end the game...
-
         console.log(`Player ${player} has won!`)
         // stop the game
       }
@@ -151,6 +183,15 @@ function getComputerChoice() {
         $onload.removeClass('hide')
       })
     })
+    $restart.on('click', function() {
+      restart()
+    })
+  }
+
+  //offset for arrow
+
+  function restart() {
+    console.log($availableSpace)
   }
 
   main()
