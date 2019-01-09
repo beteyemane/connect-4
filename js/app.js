@@ -6,6 +6,10 @@ $(() => {
   const width = 41
   const $startScreen = $('.start-screen')
   const $startButton = $('.start')
+  const $onload = $('.onload')
+  const $playerScreen = $('.choose-player-screen')
+  const $twoPlayerButton = $('.two-player')
+  const $compPlayerButton = $('.computer-player')
   let player = 'Red'
   let space
   let $space
@@ -93,9 +97,7 @@ $(() => {
   //-------------------------------------------------------------------------GAME-------------------------------------------------------------------------------------
 
   function game() {
-    // $startButton.on('click', function() {
-    //   $startButton.show()
-    // })
+
     //updates board on page load
     $turn.text(`${player}'s turn!`)
 
@@ -123,5 +125,20 @@ $(() => {
   }
 
   game()
+
+  function main() {
+    $onload.addClass('hide')
+    $playerScreen.addClass('hide')
+    $startButton.on('click', function() {
+      $startScreen.addClass('hide')
+      $playerScreen.removeClass('hide')
+      $twoPlayerButton.on('click', function(){
+        $playerScreen.addClass('hide')
+        $onload.removeClass('hide')
+      })
+    })
+  }
+
+  main()
 
 })
