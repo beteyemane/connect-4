@@ -3,7 +3,6 @@
 body {
   justify-content: center;
   display: flex;
-  background-image: url("./images/background.jpg");
   background-repeat: no-repeat;
   font-family: 'Righteous', cursive;
 }

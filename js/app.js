@@ -43,7 +43,6 @@ $(() => {
   //space is the circle you click on
     space = $(`.circle[data-circle='${c}']`)
     //loops for width length (42) then plus the consecutive numbers to columns
-    const randomNo = Math.floor(Math.random() * columns)
     for (let i =  c; i <= width ; i += columns) {
       // console.log(randomNo)
       // adding length of columns(7) to consecutive number so we can find the circle a below in the column clicked
@@ -64,18 +63,7 @@ $(() => {
     return null
   }
 
-  //----------------------------------------------------------------GET COMPUTER CHOICE----------------------------------------------------
 
-
-  // function getComputerChoice() {
-  //   // console.log(randomNo)
-  //   for (let i =  0; i <= width ; i += columns) {
-  //     const $anyFreeSpace = $(`.circle[data-circle='${i + columns + randomNo}']`)
-  //     console.log(i += columns)
-  //   }
-  // }
-  //
-  // getComputerChoice()
   //------------------------------------------------------------------------ WIN-----------------------------------------------------------
 
   //create and array of "directions"
@@ -84,15 +72,23 @@ $(() => {
   function getStartIndex(index, vector) {
   //variable that addes each direction to the played counter
     const newIndex = index + vector
-    //if the divs at the direction the player has played has been played, repeat the function the those directions
+    //if any of the divs at the direction the player has played has been played, repeat the function those directions
+
+    // if ($cells.eq(newIndex).hasClass('yellow') || $cells.eq(newIndex).hasClass('red')) {
+    //   console.log('done')
+    // }
+
+
     if ($cells.eq(newIndex).hasClass(player)){
       return getStartIndex(newIndex, vector)
     }
     //if none of the directions that the played counter have also been played, tnen play counter
     if (!($cells.eq(newIndex)).hasClass(player)) {
+
       return index
     }
   }
+
 
   //this function will check for four in a row
   function getFourCells(index, vector) {
@@ -105,8 +101,6 @@ $(() => {
     return cellsToCheck
   }
 
-
-
   function checkForWin(index) {
   //loop through the directions
     return vectors.some(vector => {
@@ -118,6 +112,17 @@ $(() => {
 
   }
 
+  //----------------------------------------------------------------GET RANDOM CHOICE----------------------------------------------------
+
+  // function getRandomNo(items) {
+  //   for(let i = 0; i <= columns; i++) {
+  //     return items[Math.floor(Math.random() * columns)]
+  //   }
+  // }
+
+  const items = [columns - 3, columns - 2, columns - 1, columns, columns + 1, columns + 2, columns + 3]
+  console.log(items)
+
   //-------------------------------------------------------------------------GAME-------------------------------------------------------------------------------------
 
   function game() {
@@ -127,32 +132,14 @@ $(() => {
 
     $grid.on('click', '.circle.none', function() {
       //index number for cells
+
       const c = $(this).data('circle')
       $availableSpace = findAvailableSpace(c)
       $availableSpace.removeClass('none')
-      //getting index of the next available space
-      const index = $availableSpace.index()
-      //need to minus the available space so it goes to the line before
       $availableSpace.addClass(player)
 
 
-      function getRandomNo(items) {
-        for(let i = 0; i < columns; i++) {
-          return items[Math.floor(Math.random() * columns)]
-        }
-      }
-
-      const items = [columns - 3, columns - 2, columns - 1, columns, columns + 1, columns + 2, columns + 3]
-      console.log(getRandomNo(items))
-
-
-
-      // compVectors.some(compVector => (index + compVector))
-
-
-
-
-
+      const index = $availableSpace.index()
 
 
       if(checkForWin(index)) {
@@ -187,11 +174,12 @@ $(() => {
       restart()
     })
   }
-
   //offset for arrow
 
+
   function restart() {
-    console.log($availableSpace)
+
+    $cells.removeClass('Red') && $cells.removeClass('Yellow')
   }
 
   main()
