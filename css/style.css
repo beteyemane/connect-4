@@ -183,3 +183,10 @@ button:hover {
   width: 1200px;
   height: 700px;
 }
+
+.score-screen {
+  width: 500px;
+  height: 500px;
+  background-color: black;
+  display: none;
+}

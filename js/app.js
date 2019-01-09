@@ -10,6 +10,7 @@ $(() => {
   const $playerScreen = $('.choose-player-screen')
   const $twoPlayerButton = $('.two-player')
   const $compPlayerButton = $('.computer-player')
+  const $scoreScreen = $('.score-screen')
   let player = 'Red'
   let space
   let $space
@@ -28,6 +29,7 @@ $(() => {
 
   //get the divs with classes from grid (children of the grid)
   const $cells = $grid.children()
+  console.log($cells)
   //---------------------------------------------------------------------FIND LAST SPACE------------------------------------------------------------------------------
   //create a function which will fill the class of player on the last available counter on the column that is clicked
   //add argument of c so we can call it when we call function
@@ -43,7 +45,7 @@ $(() => {
       $space = $(`.circle[data-circle='${i + columns}']`)
       //adding length of 'column' to length 'column' plus consec number. This is to find the circle two rows below
       $nextSpace = $(`.circle[data-circle='${i + columns + columns}']`)
-      //if circle below has been played or nsdfn and circle two rows belop has been played then put class circle clicked. if not just end
+      //if circle below has been played or nsdfn and circle two rows below has been played then put class circle clicked. if not just end
       if($nextSpace.hasClass('Red') || $nextSpace.hasClass('Yellow') || i + columns + columns > width) {
         if($space.hasClass('Red') || $space.hasClass('Yellow')) {
           return space
@@ -52,6 +54,17 @@ $(() => {
       }
     }
     return null
+  }
+
+  //----------------------------------------------------------------GET COMPUTER CHOICE----------------------------------------------------
+
+
+
+
+function getComputerChoice() {
+    const choices = []
+    const randomNo = Math.floor(Math.random() * width)
+    console.log(choices[randomNo])
   }
 
   //------------------------------------------------------------------------ WIN-----------------------------------------------------------
@@ -111,6 +124,7 @@ $(() => {
 
       if(checkForWin(index)) {
         // do something to end the game...
+
         console.log(`Player ${player} has won!`)
         // stop the game
       }
