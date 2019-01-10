@@ -13,8 +13,10 @@ $(() => {
   const $scoreScreen = $('.score-screen')
   const $restart = $('.restart')
   const $sound = $('.sound')
-  let player = 'Red'
+  const player = 'Red'
   const player2 = 'Yellow'
+  let playerOneTurn = true
+  let computerPlayer = false
   let space
   let $space
   let $nextSpace
@@ -151,67 +153,55 @@ $(() => {
 
   //-------------------------------------------------------------------------GAME-------------------------------------------------------------------------------------
 
-  function game(player2) {
+  function game() {
     //updates board on page load
-    $turn.addClass('Red')
-
+    // $turn.addClass('Red')
     // $grid.on('mouseenter', '.circle.none', function() {
     //   const c = $(this).data('circle')
     //   const $availableSpace = findAvailableSpace(c)
-    //   if(player2 === 'Yellow') {
-    //     $availableSpace.addClass('shadow-red')
-    //   } else {
-    //     $availableSpace.addClass('shadow-yellow')
-    //   }
+    //   $availableSpace.addClass('shadow-red')
     // })
     //
     // $grid.on('mouseleave', '.circle.none', function() {
     //   const c = $(this).data('circle')
     //   const $availableSpace = findAvailableSpace(c)
-    //   if(player2 === 'Yellow') {
-    //     $availableSpace.removeClass('shadow-red')
-    //   } else {
-    //     $availableSpace.removeClass('shadow-yellow')
-    //   }
+    //   $availableSpace.removeClass('shadow-red')
     // })
-
+    //
+    // // $grid.on('click', function() {
+    // //   $availableSpace.removeClass('shadow-red')
+    // // })
     $grid.on('click', '.circle.none', function() {
-      if(player2 === 'Yellow') {
+      if(!computerPlayer) {
+        const c = $(this).data('circle')
+        $availableSpace = findAvailableSpace(c)
+        $availableSpace.removeClass('none')
+        $availableSpace.addClass(playerOneTurn ? player : player2)
+        index = $availableSpace.index()
+        playerOneTurn = !playerOneTurn
+        console.log(checkForWin(index))
+      } else {
         const c = $(this).data('circle')
         $availableSpace = findAvailableSpace(c)
         $availableSpace.removeClass('none')
         $availableSpace.addClass(player)
         index = $availableSpace.index()
-
-      } else {
         const computerChoice = getRandomNo(items)
-        const c = $(this).data('circle')
-        $availableSpace = findAvailableSpace(c)
-        $availableSpace.removeClass('none')
-        $availableSpace.addClass(player)
         findAvailableSpace(computerChoice)
+        console.log(checkForWin(index))
       }
 
       if(checkForWin(index)) {
         // do something to end the game...
         $startScreen.removeClass('none')
-        console.log(`Player ${player} has won!`)
+
+        console.log(`Player ${playerOneTurn ? player : player2 } has won!`)
         // stop the game
-      }
-      //alternate between two players
-      if(player === 'Red') {
-        console.log(player)
-        player = player2
-        console.log(player2)
-      } else {
-        player = 'Red'
       }
       $turn.text(`${player}'s turn!`)
     })
   }
 
-console.log(player)
-console.log(player2)
 
 
   // game('Yellow')
@@ -225,12 +215,13 @@ console.log(player2)
       $startScreen.addClass('hide')
       $playerScreen.removeClass('hide')
       $compPlayerButton.on('click', function(){
-        game(player)
+        computerPlayer = true
+        game()
         $playerScreen.addClass('hide')
         $onload.removeClass('hide')
       })
       $twoPlayerButton.on('click', function(){
-        game('Yellow')
+        game()
         $playerScreen.addClass('hide')
         $onload.removeClass('hide')
       })
