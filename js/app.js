@@ -17,6 +17,7 @@ $(() => {
   const $info = $('.info')
   const player = 'Red'
   const player2 = 'Yellow'
+  const $infoScreen = $('.info-screen')
   let playerOneTurn = true
   let computerPlayer = false
   let space
@@ -25,23 +26,20 @@ $(() => {
   let $availableSpace
   let index
   let newIndex
-
-  //   // const playerOne = {color: 'Red'}
-  //   // const playerTwo = {color: 'Yellow'}
-  // }
+  const $closeButton = $('.close')
 
   // -------------------------------------------------------------------AUDIO----------------------------------------------------------------
 
   // const myAudio = document.createElement('audio')
   // myAudio.src = './audio/music.wav'
-  //
+  // let stopTime = 0
   // myAudio.play()
   //
   // $sound.on('click', function(){
   //   myAudio.pause()
   // })
-
-
+  //
+  //
   // for (var i = 0; i < $sound.length; i++) {
   //   $sound[i].on('click', function() {
   //     myAudio.currentTime = this.getAttribute('data-start')
@@ -49,8 +47,8 @@ $(() => {
   //     myAudio.play()
   //   }, false)
   // }
-
-  // myAudio.addEventListener('timeupdate', function() {
+  //
+  // myAudio.onClick('timeupdate', function() {
   //   if (this.currentTime > stopTime) {
   //     this.play()
   //   }
@@ -157,7 +155,7 @@ $(() => {
 
   function game() {
     //updates board on page load
-    // $turn.addClass('Red')
+
 
     // $grid.on('mouseenter', '.circle.none', function() {
     //   const c = $(this).data('circle')
@@ -184,6 +182,7 @@ $(() => {
         const c = $(this).data('circle')
         $availableSpace = findAvailableSpace(c)
         $availableSpace.removeClass('none')
+        // $turn.addClass(playerOneTurn ? player : player2)
         $availableSpace.addClass(playerOneTurn ? player : player2)
         playerOneTurn = !playerOneTurn
         index = $availableSpace.index()
@@ -202,9 +201,8 @@ $(() => {
 
       if(checkForWin(index)) {
         // do something to end the game...
-
         $onload.removeClass('hide')
-        $scoreScreen.style.display = 'block'
+        $scoreScreen.css('display', 'flex')
 
         console.log(`Player ${playerOneTurn ? player : player2 } has won!`)
         // stop the game
@@ -241,8 +239,13 @@ $(() => {
       restart()
     })
     $info.on('click', function() {
-      $
+      $infoScreen.css('display', 'flex')
     })
+
+    $closeButton.on('click', function() {
+      $infoScreen.css('display', 'none')
+    })
+
   }
   //offset for arrow
 
