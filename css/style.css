@@ -197,6 +197,11 @@ justify-content: center;
 display: flex;
 } */
 
+#compartment {
+    justify-content: center;
+    display: flex;
+}
+
 .p-screen {
   justify-content: space-around;
   align-items: center;
@@ -268,8 +273,8 @@ display: flex;
   font-size: 15px;
   background-color: rgba(255,255,255,0.8);
   border-radius: 10%;
-  width: 500px;
-  height: 500px;
+  width: 600px;
+  height: 550px;
   padding: 40px;
   margin-top: 60px;
 }
@@ -403,7 +408,11 @@ a {
 		transition: all 0.3s ease-out;
 }
 
-.timer {
+/* .test {
+background: blue;
+} */
+
+html body #compartment .timer{
   width: 200px;
   height: 150px;
   background-color: blue;

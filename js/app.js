@@ -15,6 +15,8 @@ $(() => {
   const $compPlayerButton = $('.computer-player')
   const $restartButton = $('.restart')
   const $infoButton = $('.info')
+  const $homeButton = $('.home')
+  const $backButton = $('.back')
   const $soundButton = $('.sound')
   const $closeButton = $('.close')
   const $closeScoreScreen = $('.close-score-screen')
@@ -25,7 +27,7 @@ $(() => {
   const $bonusWin = $('.bonus-win')
   const $bonusTime = $('.bonus-time')
   const $togglePlayerColor = $('.toggle-player-color')
-  const $myAudio = new Audio('./audio/music.wav')
+  const myAudio = new Audio('./audio/music.wav')
 
   const player = 'Red'
   const player2 = 'Yellow'
@@ -43,7 +45,7 @@ $(() => {
   let time = 0
 
   function getInterval() {
-    setInterval(function() {
+    const seconds = setInterval(function() {
       time++
       $time.text(time)
       console.log(time)
@@ -54,11 +56,9 @@ $(() => {
 
   // -------------------------------------------------------------------AUDIO--------------------------------------------------------------
 
-  $myAudio.play()
 
-  $soundButton.on('click', function(){
-    $myAudio.pause()
-  })
+  const sound = myAudio.pause()
+  $soundButton.on('click', sound)
 
 
   //---------------------------------------------------------------------MAKE GRID---------------------------------------------------------
@@ -145,22 +145,26 @@ $(() => {
       if(checkForWin(index)) {
         $onloadScreen.removeClass('hide')
         $scoreScreen.css('display', 'flex')
-        console.log(`${playerOneTurn ? player : player2 } has won!`)
-        $result.text(`${playerOneTurn ? player : player2 } has won!`)
-        if(time < 20) {
-          $bonusTime.text(time + 1722)
-          $bonusWin.text(1000)
-          $score.text(Math.round(12730 / time + 1722))
-        } else  {
-          $bonusTime.text()
-          $bonusWin.text(0)
-          clearInterval()
-          $score.text(Math.round(12730 / time))
-        }
+        $result.text(`${playerOneTurn ? player : player2 } wins!`)
+        scores()
       }
     })
   }
 
+
+
+  function scores() {
+    if(time < 20) {
+      $bonusTime.text(time + 1722)
+      $bonusWin.text(1000)
+      $score.text(Math.round(12730 / time + 1722))
+    } else  {
+      $bonusTime.text()
+      $bonusWin.text(0)
+      clearInterval()
+      $score.text(Math.round(12730 / time))
+    }
+  }
 
   function twoPlayer() {
     $availableSpace.addClass(playerOneTurn ? player : player2)
@@ -196,6 +200,7 @@ $(() => {
 
 
   function main() {
+    myAudio.play()
     $onloadScreen.addClass('hide')
     $playerScreen.addClass('hide')
     $startButton.on('click', function() {
@@ -226,6 +231,14 @@ $(() => {
     })
     $closeScoreScreen.on('click', function() {
       $scoreScreen.css('display', 'none')
+    })
+    $homeButton.on('click', function() {
+      $startScreen.removeClass('hide')
+      $onloadScreen.addClass('hide')
+    })
+    $backButton.on('click', function() {
+      $onloadScreen.addClass('hide')
+      $playerScreen.removeClass('hide')
     })
   }
 
