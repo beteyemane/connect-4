@@ -110,7 +110,7 @@ span {
   width: 500px;
 } */
 
-.turn {
+.toggle-player-color {
   height: 65px;
   width: 65px;
   border-radius: 50%;
@@ -223,12 +223,30 @@ display: flex;
 
 .screen {
   text-align: center;
-  font-size: 30px;
-  background-color: linear-gradient(rgb(64, 151, 250), rgb(22, 130, 252));
+  font-size: 15px;
+  background-color: rgba(255,255,255,0.8);
   border-radius: 10%;
   width: 500px;
   height: 500px;
+  padding: 40px;
+  margin-top: 60px;
 }
+
+
+.close-score-screen {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-score-screen:hover,
+.close-score-screen:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 
 .info-screen {
   /* display: none; /* Hidden by default */
