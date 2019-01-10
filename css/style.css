@@ -13,10 +13,10 @@ body {
   box-sizing: border-box;
 }
 
-h1 {
+.title {
   color: #2B9BED;
   text-align: center;
-  font-size: 150px;
+  font-size: 130px;
   margin: 10px;
   /* text-shadow: -1px 0, 0 1px black, 1px 0 black, 0 -1px black; */
 }
@@ -45,7 +45,7 @@ span {
   box-shadow: 0 0 5px gray;
 }
 
-.trapezoid {
+/* .trapezoid {
 	border-bottom: 70px solid rgb(64, 151, 250);
 	border-left: 25px solid transparent;
 	border-right: 25px solid transparent;
@@ -55,7 +55,7 @@ span {
 	width: 640px;
   align-items: center;
   margin-left: 280px;
-}
+} */
 
 .container {
   display: flex;
@@ -117,10 +117,11 @@ span {
 } */
 
 .start-screen {
-  width: 1000px;
+  width: 1400px;
   height: 700px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+
 }
 
 .start {
@@ -132,28 +133,17 @@ span {
   justify-content: center;
   display: flex;
   margin: 120px 0;
-  background: linear-gradient(rgb(64, 151, 250), rgb(22, 130, 252));
+  background: white;
 }
 
-.overlay {
-  position: fixed; /* Sit on top of the page content */ /* Hidden by default */
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-  cursor: pointer; /* Add a pointer on hover */
-}
+
 
 .play-icon {
    width: 0;
    height: 0;
    border-top: 50px solid transparent;
    border-bottom: 50px solid transparent;
-   border-left: 80px solid red;
+   border-left: 80px solid rgb(22, 130, 252);
   }
 
 .hide {
@@ -165,9 +155,9 @@ span {
   justify-content: space-around;
 }
 
-.sound, .restart {
-  width: 80px;
-  height: 80px;
+.info, .sound, .restart {
+  max-width: 80px;
+  max-height: 80px;
   background: linear-gradient(rgb(64, 151, 250), rgb(22, 130, 252));
   border-radius: 10px;
   box-shadow: 0 4px rgba(0, 0, 0, 0.1);
@@ -214,8 +204,55 @@ display: flex;
 }
 
 .score-screen {
+  /* display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+  display: none;
+  justify-content: center;
+}
+
+
+.screen {
+  text-align: center;
+  font-size: 30px;
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 10%;
   width: 500px;
   height: 500px;
-  background-color: black;
-  display: none;
 }
+
+p {
+margin: 0;
+}
+
+
+.total {
+  font-size: 45px;
+}
+
+.background {
+  margin-top: 40px;
+}
+
+.info {
+
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 1200px;
+  height: 120px;
+}
+/* .start-buttons {
+display: flex;
+justify-content: space-between;
+width: 1200px;
+} */

@@ -13,6 +13,8 @@ $(() => {
   const $scoreScreen = $('.score-screen')
   const $restart = $('.restart')
   const $sound = $('.sound')
+  const $result = $('.result')
+  const $info = $('.info')
   const player = 'Red'
   const player2 = 'Yellow'
   let playerOneTurn = true
@@ -156,44 +158,53 @@ $(() => {
   function game() {
     //updates board on page load
     // $turn.addClass('Red')
+
     // $grid.on('mouseenter', '.circle.none', function() {
     //   const c = $(this).data('circle')
     //   const $availableSpace = findAvailableSpace(c)
-    //   $availableSpace.addClass('shadow-red')
+    //   if(player2 === 'Yellow') {
+    //     $availableSpace.addClass('shadow-red')
+    //   } else {
+    //     $availableSpace.addClass('shadow-yellow')
+    //   }
     // })
     //
     // $grid.on('mouseleave', '.circle.none', function() {
     //   const c = $(this).data('circle')
     //   const $availableSpace = findAvailableSpace(c)
-    //   $availableSpace.removeClass('shadow-red')
+    //   if(player2 === 'Yellow') {
+    //     $availableSpace.removeClass('shadow-red')
+    //   } else {
+    //     $availableSpace.removeClass('shadow-yellow')
+    //   }
     // })
-    //
-    // // $grid.on('click', function() {
-    // //   $availableSpace.removeClass('shadow-red')
-    // // })
+
     $grid.on('click', '.circle.none', function() {
       if(!computerPlayer) {
         const c = $(this).data('circle')
         $availableSpace = findAvailableSpace(c)
         $availableSpace.removeClass('none')
         $availableSpace.addClass(playerOneTurn ? player : player2)
-        index = $availableSpace.index()
         playerOneTurn = !playerOneTurn
-        console.log(checkForWin(index))
+        index = $availableSpace.index()
+        checkForWin(index)
       } else {
         const c = $(this).data('circle')
         $availableSpace = findAvailableSpace(c)
+        console.log($availableSpace)
         $availableSpace.removeClass('none')
         $availableSpace.addClass(player)
         index = $availableSpace.index()
+        checkForWin(index)
         const computerChoice = getRandomNo(items)
         findAvailableSpace(computerChoice)
-        console.log(checkForWin(index))
       }
 
       if(checkForWin(index)) {
         // do something to end the game...
-        $startScreen.removeClass('none')
+
+        $onload.removeClass('hide')
+        $scoreScreen.style.display = 'block'
 
         console.log(`Player ${playerOneTurn ? player : player2 } has won!`)
         // stop the game
@@ -228,6 +239,9 @@ $(() => {
     })
     $restart.on('click', function() {
       restart()
+    })
+    $info.on('click', function() {
+      $
     })
   }
   //offset for arrow
