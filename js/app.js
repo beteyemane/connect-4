@@ -18,10 +18,14 @@ $(() => {
   const $soundButton = $('.sound')
   const $closeButton = $('.close')
   const $closeScoreScreen = $('.close-score-screen')
+  const $time = $('.time')
 
   const $result = $('.result')
+  const $score = $('.score')
+  const $bonusWin = $('.bonus-win')
+  const $bonusTime = $('.bonus-time')
   const $togglePlayerColor = $('.toggle-player-color')
-  const myAudio = new Audio('./audio/music.wav')
+  const $myAudio = new Audio('./audio/music.wav')
 
   const player = 'Red'
   const player2 = 'Yellow'
@@ -36,13 +40,26 @@ $(() => {
   let index
   let newIndex
 
-  // -------------------------------------------------------------------AUDIO--------------------------------------------------------------
-  function audio () {
-    myAudio.play()
-    $soundButton.on('click', function(){
-      myAudio.pause()
-    })
+  let time = 0
+
+  function getInterval() {
+    setInterval(function() {
+      time++
+      $time.text(time)
+      console.log(time)
+    }, 1000)
   }
+
+
+
+  // -------------------------------------------------------------------AUDIO--------------------------------------------------------------
+
+  $myAudio.play()
+
+  $soundButton.on('click', function(){
+    $myAudio.pause()
+  })
+
 
   //---------------------------------------------------------------------MAKE GRID---------------------------------------------------------
   const $grid = $('.grid')
@@ -54,9 +71,9 @@ $(() => {
   }
   const $cells = $grid.children()
   //---------------------------------------------------------------------FIND LAST SPACE---------------------------------------------------
-  function findAvailableSpace(c) {
-    space = $(`.circle[data-circle='${c}']`)
-    for (let i =  c; i <= width ; i += columns) {
+  function findAvailableSpace(circle) {
+    space = $(`.circle[data-circle='${circle}']`)
+    for (let i =  circle; i <= width ; i += columns) {
       $space = $(`.circle[data-circle='${i + columns}']`)
       $nextSpace = $(`.circle[data-circle='${i + columns + columns}']`)
       if($nextSpace.hasClass('Red') || $nextSpace.hasClass('Yellow') || i + columns + columns > width) {
@@ -106,44 +123,79 @@ $(() => {
     }
   }
   //-------------------------------------------------------------------------GAME----------------------------------------------------------
-
   function game() {
+
+    toggleShadow()
     $grid.on('click', '.circle.none', function() {
+      const circle = $(this).data('circle')
+      $availableSpace = findAvailableSpace(circle)
+      $availableSpace.removeClass('none')
+      $availableSpace.removeClass('shadow-yellow')
+      $availableSpace.removeClass('shadow-red')
+
+      index = $availableSpace.index()
+
       if(!computerPlayer) {
-        const c = $(this).data('circle')
-        $availableSpace = findAvailableSpace(c)
-        $availableSpace.removeClass('none')
-        $togglePlayerColor.addClass(playerOneTurn ? player : player2)
-        $availableSpace.addClass(playerOneTurn ? player : player2)
-        playerOneTurn = !playerOneTurn
-        index = $availableSpace.index()
-        checkForWin(index)
+        twoPlayer()
       } else {
-        const c = $(this).data('circle')
-        $availableSpace = findAvailableSpace(c)
-        console.log($availableSpace)
-        $availableSpace.removeClass('none')
-        $availableSpace.addClass(player)
-        index = $availableSpace.index()
-        checkForWin(index)
-        const computerChoice = getRandomNo(items)
-        findAvailableSpace(computerChoice)
+        computer()
       }
+      checkForWin(index)
 
       if(checkForWin(index)) {
-        // do something to end the game...
         $onloadScreen.removeClass('hide')
         $scoreScreen.css('display', 'flex')
-
-        console.log(`Player ${playerOneTurn ? player : player2 } has won!`)
-        // stop the game
+        console.log(`${playerOneTurn ? player : player2 } has won!`)
+        $result.text(`${playerOneTurn ? player : player2 } has won!`)
+        if(time < 20) {
+          $bonusTime.text(time + 1722)
+          $bonusWin.text(1000)
+          $score.text(Math.round(12730 / time + 1722))
+        } else  {
+          $bonusTime.text()
+          $bonusWin.text(0)
+          clearInterval()
+          $score.text(Math.round(12730 / time))
+        }
       }
-      $togglePlayerColor.text(`${player}'s turn!`)
     })
   }
 
+
+  function twoPlayer() {
+    $availableSpace.addClass(playerOneTurn ? player : player2)
+    playerOneTurn = !playerOneTurn
+  }
+
+  function computer() {
+    $availableSpace.addClass(player)
+    const computerChoice = getRandomNo(items)
+    findAvailableSpace(computerChoice)
+  }
+
+  function toggleShadow() {
+    $grid.on('mouseenter', '.circle.none', function() {
+      const circle = $(this).data('circle')
+      $availableSpace = findAvailableSpace(circle)
+      if(!playerOneTurn) {
+        $availableSpace.addClass('shadow-yellow')
+      } else {
+        $availableSpace.addClass('shadow-red')
+      }
+    })
+    $grid.on('mouseleave', '.circle.none', function() {
+      const circle = $(this).data('circle')
+      $availableSpace = findAvailableSpace(circle)
+      if(!playerOneTurn) {
+        $availableSpace.removeClass('shadow-yellow')
+      } else {
+        $availableSpace.removeClass('shadow-red')
+      }
+    })
+  }
+
+
   function main() {
-    audio()
     $onloadScreen.addClass('hide')
     $playerScreen.addClass('hide')
     $startButton.on('click', function() {
@@ -157,6 +209,7 @@ $(() => {
       })
       $twoPlayerButton.on('click', function(){
         game()
+        getInterval()
         $playerScreen.addClass('hide')
         $onloadScreen.removeClass('hide')
       })
@@ -185,31 +238,3 @@ $(() => {
   main()
 
 })
-
-
-
-
-
-
-    //updates board on page load
-
-
-    // $grid.on('mouseenter', '.circle.none', function() {
-    //   const c = $(this).data('circle')
-    //   const $availableSpace = findAvailableSpace(c)
-    //   if(player2 === 'Yellow') {
-    //     $availableSpace.addClass('shadow-red')
-    //   } else {
-    //     $availableSpace.addClass('shadow-yellow')
-    //   }
-    // })
-    //
-    // $grid.on('mouseleave', '.circle.none', function() {
-    //   const c = $(this).data('circle')
-    //   const $availableSpace = findAvailableSpace(c)
-    //   if(player2 === 'Yellow') {
-    //     $availableSpace.removeClass('shadow-red')
-    //   } else {
-    //     $availableSpace.removeClass('shadow-yellow')
-    //   }
-    // })
