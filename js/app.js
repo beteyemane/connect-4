@@ -14,12 +14,17 @@ $(() => {
   const $restart = $('.restart')
   const $sound = $('.sound')
   let player = 'Red'
+  const player2 = 'Yellow'
   let space
   let $space
   let $nextSpace
   let $availableSpace
   let index
   let newIndex
+
+  //   // const playerOne = {color: 'Red'}
+  //   // const playerTwo = {color: 'Yellow'}
+  // }
 
   // -------------------------------------------------------------------AUDIO----------------------------------------------------------------
 
@@ -132,11 +137,11 @@ $(() => {
 
   //----------------------------------------------------------------GET RANDOM CHOICE----------------------------------------------------
   function getRandomNo(items) {
-    console.log()
+    // console.log()
     const randomIndex = findAvailableSpace(items[Math.floor(Math.random() * columns)])
-    console.log('Random Index : ', randomIndex)
-    console.log('Items: ', items)
-    console.log('$cells: ', $cells)
+    // console.log('Random Index : ', randomIndex)
+    // console.log('Items: ', items)
+    // console.log('$cells: ', $cells)
     if (!$cells.eq(randomIndex).hasClass('Yellow')){
       randomIndex.addClass('Yellow')
     }
@@ -147,14 +152,30 @@ $(() => {
   //-------------------------------------------------------------------------GAME-------------------------------------------------------------------------------------
 
   function game(player2) {
-
     //updates board on page load
-    $turn.text(`${player}'s turn!`)
+    $turn.addClass('Red')
+
+    // $grid.on('mouseenter', '.circle.none', function() {
+    //   const c = $(this).data('circle')
+    //   const $availableSpace = findAvailableSpace(c)
+    //   if(player2 === 'Yellow') {
+    //     $availableSpace.addClass('shadow-red')
+    //   } else {
+    //     $availableSpace.addClass('shadow-yellow')
+    //   }
+    // })
+    //
+    // $grid.on('mouseleave', '.circle.none', function() {
+    //   const c = $(this).data('circle')
+    //   const $availableSpace = findAvailableSpace(c)
+    //   if(player2 === 'Yellow') {
+    //     $availableSpace.removeClass('shadow-red')
+    //   } else {
+    //     $availableSpace.removeClass('shadow-yellow')
+    //   }
+    // })
 
     $grid.on('click', '.circle.none', function() {
-      //index number for cells
-
-
       if(player2 === 'Yellow') {
         const c = $(this).data('circle')
         $availableSpace = findAvailableSpace(c)
@@ -173,23 +194,28 @@ $(() => {
 
       if(checkForWin(index)) {
         // do something to end the game...
+        $startScreen.removeClass('none')
         console.log(`Player ${player} has won!`)
         // stop the game
       }
       //alternate between two players
       if(player === 'Red') {
-        console.log(player, player2)
-        player = player2
-        console.log(player, player2)
-      } else {
         console.log(player)
+        player = player2
+        console.log(player2)
+      } else {
         player = 'Red'
       }
       $turn.text(`${player}'s turn!`)
     })
   }
 
+console.log(player)
+console.log(player2)
+
+
   // game('Yellow')
+
 
 
   function main() {
@@ -199,7 +225,7 @@ $(() => {
       $startScreen.addClass('hide')
       $playerScreen.removeClass('hide')
       $compPlayerButton.on('click', function(){
-        game('Computer')
+        game(player)
         $playerScreen.addClass('hide')
         $onload.removeClass('hide')
       })
@@ -218,6 +244,8 @@ $(() => {
 
   function restart() {
     $cells.removeClass('Red') && $cells.removeClass('Yellow')
+    $availableSpace.removeClass('shadow-yellow')
+    $availableSpace.removeClass('shadow-red')
   }
 
   main()

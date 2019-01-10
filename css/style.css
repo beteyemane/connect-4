@@ -4,28 +4,29 @@ body {
   justify-content: center;
   display: flex;
   background-repeat: no-repeat;
-  font-family: 'Righteous', cursive;
   background-size: cover;
+  /* background-image: url("https://media.giphy.com/media/Cv7wrQjYcd6hO/giphy.gif"); */
+  font-family: 'Coiny', cursive;
 }
 
 * {
   box-sizing: border-box;
 }
 
-/* .container {
-  display: flex;
-  justify-content: center;
-} */
-
 h1 {
   color: #2B9BED;
   text-align: center;
-  font-size: 85px;
+  font-size: 150px;
   margin: 10px;
+  text-shadow: -1px 0, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 img {
   margin: 30px;
+}
+
+span {
+  color: red;
 }
 
 .grid {
@@ -37,7 +38,7 @@ img {
   flex-grow: 1;
   flex-wrap: wrap;
   height: 100%;
-  justify-content: center;
+  justify-content: space-around;
   max-height: 600px;
   max-width: 600px;
   margin-bottom: 10px;
@@ -49,10 +50,11 @@ img {
 	border-left: 25px solid transparent;
 	border-right: 25px solid transparent;
   border: 1px solid black;
+  box-shadow: 0 0 10px gray;
 	height: 0;
 	width: 640px;
   align-items: center;
-  margin-left: 292px;
+  margin-left: 280px;
 }
 
 .container {
@@ -66,13 +68,12 @@ img {
   border-radius: 50%;
   background-color: white;
   margin: 10px;
-}
-
-.circle.none {
-  cursor: pointer;
   box-shadow: 0 0 5px gray;
 }
 
+.circle.none {
+  cursor: pointer;  
+}
 
 .Red {
   border: 2px solid #f5f5f5;
@@ -99,15 +100,21 @@ img {
 
 .play {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center
 }
 
-.player-turn {
-  padding: 30px;
+/* .player-turn {
   color: black;
   text-align: center;
   font-size: 45px;
-}
+  width: 500px;
+} */
+
+/* .turn {
+  height: 65px;
+  width: 65px;
+  border-radius: 50%;
+} */
 
 .start-screen {
   width: 1000px;
@@ -116,51 +123,46 @@ img {
   justify-content: center;
 }
 
-@-webkit-keyframes bounce {
-        0% {
-    transform: scale(1,1) translate(0px, 0px);
-  }
-
-  30%{
-    transform: scale(1,0.8) translate(0px, 0px);
-  }
-
-  75%{
-    transform: scale(1,1.1) translate(0px, 0px);
-  }
-
- 100% {
-    transform: scale(1,1) translate(0px, 0px);
-  }
-}
-
 .start {
-  height: 180px;
-  width: 180px;
+  height: 130px;
+  width: 130px;
   box-shadow: 0 4px rgba(0, 0, 0, 0.1);
   border-radius: 10%;
-  border: 1.6px solid rgba(64, 151, 250, 0.5);
+  border: 1.6px solid black;
   justify-content: center;
   display: flex;
-  margin: 180px 0;
-  -webkit-animation: bounce 0.75s infinite;
-  background-color: rgb(64, 151, 250)
+  margin: 120px 0;
+  background: linear-gradient(rgb(64, 151, 250), rgb(22, 130, 252));
+}
+
+.overlay {
+  position: fixed; /* Sit on top of the page content */ /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
 }
 
 .play-icon {
-  width: 0;
+   width: 0;
    height: 0;
    border-top: 50px solid transparent;
    border-bottom: 50px solid transparent;
-   border-left: 80px solid white;
+   border-left: 80px solid red;
   }
+
 .hide {
   display: none;
 }
 
 .picture-play {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .sound, .restart {
@@ -171,6 +173,10 @@ img {
   box-shadow: 0 4px rgba(0, 0, 0, 0.1);
   text-align: center;
   flex-grow: 1
+}
+
+img {
+  margin: 0;
 }
 
 button:hover {
@@ -184,11 +190,10 @@ button:hover {
   border-radius: 10px;
   box-shadow: 0 4px rgba(0, 0, 0, 0.1);
   text-align: center;
-  font-family: 'Righteous', cursive;
+  font-family: 'Coiny', cursive;
   color: white;
   font-size: 30px;
 }
-
 
 .onload, .choose-player-screen {
   width: 1200px;
