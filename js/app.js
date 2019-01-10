@@ -19,6 +19,7 @@ $(() => {
   let $nextSpace
   let $availableSpace
   let index
+  let newIndex
 
   // -------------------------------------------------------------------AUDIO----------------------------------------------------------------
 
@@ -50,7 +51,7 @@ $(() => {
   //add atrribute of data-circle and give them consecutive numbers so we can have them all numbered.
   const $grid = $('.grid')
   for(let i = 0; i < columns * rows; i++) {
-    $div = $('<div>')
+    const $div = $('<div>')
       .addClass('circle none')
       .attr('data-circle', i)
     $grid.append($div)
@@ -99,23 +100,14 @@ $(() => {
   //create a function that takes in the index of played counter and the directions
   function getStartIndex(index, vector) {
   //variable that addes each direction to the played counter
-    const newIndex = index + vector
+    newIndex = index + vector
     //if any of the divs at the direction the player has played has been played, repeat the function those directions
-
-    // if ($cells.eq(newIndex).hasClass('yellow') || $cells.eq(newIndex).hasClass('red')) {
-    //   console.log('done')
-    // }
     if ($cells.eq(newIndex).hasClass(player)){
-
       return getStartIndex(newIndex, vector)
     }
     //if none of the directions that the played counter have also been played, tnen play counter
-    if (!($cells.eq(newIndex)).hasClass(player)) {
-
-      return index
-    }
+    if (!($cells.eq(newIndex)).hasClass(player)) return index
   }
-
 
   //this function will check for four in a row
   function getFourCells(index, vector) {
@@ -131,7 +123,6 @@ $(() => {
   function checkForWin(index) {
   //loop through the directions
     return vectors.some(vector => {
-
       const startIndex = getStartIndex(index, -vector)
       const $cellsToCheck = getFourCells(startIndex, vector)
       return $cellsToCheck.every($cell => $cell.hasClass(player))
@@ -140,16 +131,18 @@ $(() => {
   }
 
   //----------------------------------------------------------------GET RANDOM CHOICE----------------------------------------------------
-
-
   function getRandomNo(items) {
-    for(let i = 0; i <= columns; i++) {
-      return findAvailableSpace(items[Math.floor(Math.random() * columns)])
+    console.log()
+    const randomIndex = findAvailableSpace(items[Math.floor(Math.random() * columns)])
+    console.log('Random Index : ', randomIndex)
+    console.log('Items: ', items)
+    console.log('$cells: ', $cells)
+    if (!$cells.eq(randomIndex).hasClass('Yellow')){
+      randomIndex.addClass('Yellow')
     }
   }
 
   const items = [columns - 3, columns - 2, columns - 1, columns, columns + 1, columns + 2, columns + 3]
-  console.log(getRandomNo(items))
 
   //-------------------------------------------------------------------------GAME-------------------------------------------------------------------------------------
 
@@ -161,6 +154,7 @@ $(() => {
     $grid.on('click', '.circle.none', function() {
       //index number for cells
 
+
       if(player2 === 'Yellow') {
         const c = $(this).data('circle')
         $availableSpace = findAvailableSpace(c)
@@ -170,11 +164,12 @@ $(() => {
 
       } else {
         const computerChoice = getRandomNo(items)
+        const c = $(this).data('circle')
+        $availableSpace = findAvailableSpace(c)
+        $availableSpace.removeClass('none')
+        $availableSpace.addClass(player)
         findAvailableSpace(computerChoice)
       }
-
-      console.log($availableSpace)
-
 
       if(checkForWin(index)) {
         // do something to end the game...
@@ -183,8 +178,11 @@ $(() => {
       }
       //alternate between two players
       if(player === 'Red') {
+        console.log(player, player2)
         player = player2
+        console.log(player, player2)
       } else {
+        console.log(player)
         player = 'Red'
       }
       $turn.text(`${player}'s turn!`)
@@ -201,7 +199,7 @@ $(() => {
       $startScreen.addClass('hide')
       $playerScreen.removeClass('hide')
       $compPlayerButton.on('click', function(){
-        game('computer')
+        game('Computer')
         $playerScreen.addClass('hide')
         $onload.removeClass('hide')
       })
@@ -219,7 +217,6 @@ $(() => {
 
 
   function restart() {
-
     $cells.removeClass('Red') && $cells.removeClass('Yellow')
   }
 

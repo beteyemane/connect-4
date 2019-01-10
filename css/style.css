@@ -5,6 +5,7 @@ body {
   display: flex;
   background-repeat: no-repeat;
   font-family: 'Righteous', cursive;
+  background-size: cover;
 }
 
 * {
@@ -29,8 +30,9 @@ img {
 
 .grid {
   align-items: center;
-  background-color: rgb(64, 151, 250);
+  background: linear-gradient(rgb(64, 151, 250), rgb(22, 130, 252));
   border-radius: 5%;
+  border: 1px solid black;
   display: flex;
   flex-grow: 1;
   flex-wrap: wrap;
@@ -39,11 +41,23 @@ img {
   max-height: 600px;
   max-width: 600px;
   margin-bottom: 10px;
+  box-shadow: 0 0 5px gray;
+}
+
+.trapezoid {
+	border-bottom: 70px solid rgb(64, 151, 250);
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+  border: 1px solid black;
+	height: 0;
+	width: 640px;
+  align-items: center;
+  margin-left: 292px;
 }
 
 .container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .circle {
@@ -56,15 +70,23 @@ img {
 
 .circle.none {
   cursor: pointer;
+  box-shadow: 0 0 5px gray;
 }
 
 
 .Red {
-  background-color: red;
+  border: 2px solid #f5f5f5;
+  border-radius: 50%;
+  background: red;
+  box-shadow: 0 0 3px gray;
 }
 
 .Yellow {
-  background-color: yellow;
+     border: 2px solid #f5f5f5;
+     border-radius: 50%;
+     color:yellow;
+     background: yellow;
+     box-shadow: 0 0 3px gray;
 }
 
 .shadow-red {
@@ -77,17 +99,14 @@ img {
 
 .play {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .player-turn {
-  background-color: #2B9BED;
   padding: 30px;
-  margin-bottom: 20px;
-  color: white;
+  color: black;
   text-align: center;
   font-size: 45px;
-  border-radius: 10px;
 }
 
 .start-screen {
@@ -147,7 +166,7 @@ img {
 .sound, .restart {
   width: 80px;
   height: 80px;
-  background-color: rgb(64, 151, 250);
+  background: linear-gradient(rgb(64, 151, 250), rgb(22, 130, 252));
   border-radius: 10px;
   box-shadow: 0 4px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -158,7 +177,7 @@ button:hover {
   cursor: pointer;
 }
 
-.two-player, .computer-player {
+.two-player, .computer-player, .connect-eight{
   width: 280px;
   height: 200px;
   background-color: rgb(64, 151, 250);
@@ -176,8 +195,14 @@ button:hover {
   height: 700px;
 }
 
+/* .onload {
+justify-content: center;
+display: flex;
+} */
+
 .p-screen {
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
   display: flex;
   width: 1200px;
   height: 700px;
