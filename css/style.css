@@ -129,7 +129,7 @@ span {
 .start {
   height: 130px;
   width: 130px;
-  box-shadow: 0 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
   border-radius: 10%;
   /* border: 1.6px solid black; */
   justify-content: center;
@@ -138,7 +138,6 @@ span {
   background: white;
   font-size: 45px;
 }
-
 
 
 .play-icon {
@@ -205,6 +204,9 @@ display: flex;
     display: flex;
 }
 
+#compartment:first-child {
+
+}
 .p-screen {
   justify-content: center;
   align-items: center;
@@ -320,10 +322,6 @@ p .result{
   margin-top: 40px;
 }
 
-.info {
-
-}
-
 .buttons {
   display: flex;
   justify-content: space-between;
@@ -353,76 +351,12 @@ h3{
 	letter-spacing: 0.06em;
 }
 
-a {
-	text-decoration: none;
-
-	&:hover,
-	&:focus,
-	&:active {
-	  text-decoration: none;
-  }
-}
-
-/* fancy Button */
-.fancy-button {
-	display: inline-block;
-	margin: 20px;
-	font-family: 'Heebo', Helvetica, Arial, sans-serif;
-	font-weight: 500;
-	font-size: 16px;
-	letter-spacing: 0.07em;
-	text-transform: uppercase;
-	line-height: 24px;
-	color: #ffffff;
-	position: relative;
-
-	&.bg-gradient1 {
-		text-shadow: 0px 0px 1px #BF4C28;
-	}
-
-	&.bg-gradient2 {
-		text-shadow: 0px 0px 1px #227270;
-	}
-
-	&.bg-gradient3 {
-		text-shadow: 0 0 1px #546082;
-	}
-
-	&:before {
-		content: '';
-		display: inline-block;
-		height: 40px;
-		position: absolute;
-		bottom: -1px;
-		left: 10px;
-		right: 10px;
-		z-index: -1;
-		border-radius: 2em;
-		filter: blur(14px) brightness(0.9);
-		transform-style: preserve-3d;
-		transition: all 0.3s ease-out;
-	}
-	i {
-		margin-top: -2px;
-		font-size: 1.265em;
-		vertical-align: middle;
-	}
-	span {
-		display: inline-block;
-		padding: 16px 20px;
-		border-radius: 50em;
-		position: relative;
-		z-index: 2;
-		will-change: transform, filter;
-		transform-style: preserve-3d;
-		transition: all 0.3s ease-out;
-}
 
 /* .test {
 background: blue;
 } */
 
-body .onload #compartment .timer {
+.timer {
   width: 200px;
   height: 150px;
   background-color: blue;

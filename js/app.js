@@ -113,47 +113,16 @@ $(() => {
   }
 
   //----------------------------------------------------------------GET RANDOM CHOICE----------------------------------------------------
-  function getRandomNo(vectors) {
+  function getComputerNo(vectors) {
+  //getting a random free space
     const randomIndex = findAvailableSpace(vectors[Math.floor(Math.random() * vectors.length)])
-    // if (!$cells.eq(randomIndex).hasClass('Yellow')){
-    //   randomIndex.addClass('Yellow')
-    // }
-    // if ($cells.eq(items).hasClass('Red')) {
-    // //if the cells have a class of red
-    // //add a class of yellow next to it
-    const newItems = index + vectors
-    // console.log(vectors)
     if ($cells.eq(vectors).hasClass('Yellow')) {
-      getStartIndex(newItems, vectors)
-      //check if cell next to me is free and go
-    } if ($cells.eq(newItems).hasClass('Yellow')) {
-      $cells.eq(newItems).addClass('Yellow')
-    } else {
+      getStartIndex(newIndex, vectors)
+    }  else {
       randomIndex.addClass('Yellow')
     }
-
-    // if ($cells.eq(vector).hasClass('Yellow')){
-    //   console.log(getStartIndex(randomIndex, vector))
-    //
-    //   // $cells.eq(vector).addClass('Yellow')
-    // } else {
-    //   randomIndex.addClass('Yellow')
-    // }
-    // function getStartIndex(index, vector) {
-    //   newIndex = index + vector
-    //   if ($cells.eq(newIndex).hasClass(player)){
-    //     return getStartIndex(newIndex, vector)
-    //   }
-    //   if (!($cells.eq(newIndex)).hasClass(player)) return index
-    // }
-    //if items of yellow h
-    //is cell next to me Yellow
-    //if it isn't
-    //get random square
-    //wait till its free ANDD square next is yellow
+    checkForWin(index)
   }
-
-
   //-------------------------------------------------------------------------GAME----------------------------------------------------------
   function game() {
 
@@ -205,7 +174,7 @@ $(() => {
 
   function computer() {
     $availableSpace.addClass(player)
-    const computerChoice = getRandomNo(vectors)
+    const computerChoice = getComputerNo(vectors)
     findAvailableSpace(computerChoice)
   }
 
@@ -261,7 +230,6 @@ $(() => {
 
     $closeButton.on('click', function() {
       $infoScreen.css('display', 'none')
-      restart()
     })
     $closeScoreScreen.on('click', function() {
       $scoreScreen.css('display', 'none')
@@ -276,6 +244,7 @@ $(() => {
     $backButton.on('click', function() {
       $onloadScreen.addClass('hide')
       $playerScreen.removeClass('hide')
+      restart()
     })
   }
 
