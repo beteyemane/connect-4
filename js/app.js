@@ -50,7 +50,6 @@ $(() => {
     const seconds = setInterval(function() {
       time++
       $time.text(time)
-      console.log(time)
     }, 1000)
   }
 
@@ -69,7 +68,7 @@ $(() => {
   const $cells = $grid.children()
   //---------------------------------------------------------------------FIND LAST SPACE---------------------------------------------------
   function findAvailableSpace(circle) {
-    console.log(circle)
+    // console.log(circle)
     space = $(`.circle[data-circle='${circle}']`)
     for (let i =  circle; i <= width ; i += columns) {
       $space = $(`.circle[data-circle='${i + columns}']`)
@@ -85,15 +84,14 @@ $(() => {
   }
   //------------------------------------------------------------------------ WIN-----------------------------------------------------------
   const vectors = [-1, +1, columns-1, columns, columns+1]
-  console.log(vectors)
+  // console.log(vectors)
 
   function getStartIndex(index, vector) {
-    console.log(index)
     newIndex = index + vector
-    if ($cells.eq(newIndex).hasClass(player)){
+    if ($cells.eq(newIndex).hasClass(playerOneTurn ? player : player2)){
       return getStartIndex(newIndex, vector)
     }
-    if (!($cells.eq(newIndex)).hasClass(player)) return index
+    if (!($cells.eq(newIndex)).hasClass(playerOneTurn ? player : player2)) return index
   }
 
   function getFourCells(index, vector) {
@@ -108,9 +106,10 @@ $(() => {
     return vectors.some(vector => {
       const startIndex = getStartIndex(index, -vector)
       const $cellsToCheck = getFourCells(startIndex, vector)
-      return $cellsToCheck.every($cell => $cell.hasClass(player))
+      const player1Wins = $cellsToCheck.every($cell => $cell.hasClass(player))
+      const player2wins = $cellsToCheck.every($cell => $cell.hasClass(player2))
+      return player1Wins || player2wins
     })
-
   }
 
   //----------------------------------------------------------------GET RANDOM CHOICE----------------------------------------------------
@@ -123,7 +122,7 @@ $(() => {
     // //if the cells have a class of red
     // //add a class of yellow next to it
     const newItems = index + vectors
-    console.log(vectors)
+    // console.log(vectors)
     if ($cells.eq(vectors).hasClass('Yellow')) {
       getStartIndex(newItems, vectors)
       //check if cell next to me is free and go
@@ -179,7 +178,7 @@ $(() => {
       if(checkForWin(index)) {
         $onloadScreen.removeClass('hide')
         $scoreScreen.css('display', 'flex')
-        $result.text(`${playerOneTurn ? player2 : player } wins!`)
+        $result.text(`${playerOneTurn ? player2 : player} wins!`)
         scores()
       }
     })
@@ -191,7 +190,7 @@ $(() => {
       $bonusWin.text(1000)
       $score.text(Math.round(12730 / time + 1722))
     } else  {
-      $bonusTime.text()
+      $bonusTime.text(0)
       $bonusWin.text(0)
       clearInterval()
       $score.text(Math.round(12730 / time))
@@ -201,6 +200,7 @@ $(() => {
   function twoPlayer() {
     $availableSpace.addClass(playerOneTurn ? player : player2)
     playerOneTurn = !playerOneTurn
+    console.log('this is player', player )
   }
 
   function computer() {
