@@ -46,6 +46,7 @@ $(() => {
 
   let time = 0
 
+  //-----------------------------------------------------------------TIMER----------------------------------------------
 
   let seconds = setInterval(function() {
     time++
@@ -54,7 +55,11 @@ $(() => {
 
   // -------------------------------------------------------------------AUDIO--------------------------------------------------------------
 
-  $soundButton.on('click', myAudio.play())
+  $soundButton.on('click', function() {
+    audioClick.muted = true
+    audioMouseover.muted = true
+    $soundButton.text('Mute')
+  })
 
   //---------------------------------------------------------------------MAKE GRID---------------------------------------------------------
   const $grid = $('.grid')
@@ -119,7 +124,9 @@ $(() => {
   function getComputerNo(vectors) {
   //getting a random free space
     const randomIndex = findAvailableSpace(vectors[Math.floor(Math.random() * vectors.length)])
-    randomIndex.addClass(player2)
+    setTimeout(function() {
+      randomIndex.addClass(player2)
+    }, 1000)
     randomIndex.removeClass('none')
     $result.text(`${playerOneTurn ? player : player2} wins!`)
     checkForWin(index)
@@ -129,6 +136,7 @@ $(() => {
   function game() {
 
     toggleShadow()
+
     $grid.on('click', '.circle.none', function() {
       audioClick.play()
       const circle = $(this).data('circle')
