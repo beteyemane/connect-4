@@ -356,10 +356,12 @@ h3{
 background: blue;
 } */
 
-.timer {
-  width: 200px;
-  height: 150px;
-  background-color: blue;
+#timer {
+  /* padding: 50px; */
+  text-align: center;
   display: flex;
   text-align: center;
+  font-size: 60px;
+  color: rgb(64, 151, 250);
+  border-radius: 10px;
 }

@@ -46,16 +46,15 @@ $(() => {
 
   let time = 0
 
-  function getInterval() {
-    const seconds = setInterval(function() {
-      time++
-      $time.text(time)
-    }, 1000)
-  }
+
+  let seconds = setInterval(function() {
+    time++
+    $time.text(time)
+  }, 1000)
 
   // -------------------------------------------------------------------AUDIO--------------------------------------------------------------
 
-  $soundButton.on('click', myAudio.pause())
+  $soundButton.on('click', myAudio.play())
 
   //---------------------------------------------------------------------MAKE GRID---------------------------------------------------------
   const $grid = $('.grid')
@@ -73,6 +72,9 @@ $(() => {
     for (let i =  circle; i <= width ; i += columns) {
       $space = $(`.circle[data-circle='${i + columns}']`)
       $nextSpace = $(`.circle[data-circle='${i + columns + columns}']`)
+      if (circle >= 35) {
+        return space
+      }
       if($nextSpace.hasClass('Red') || $nextSpace.hasClass('Yellow') || i + columns + columns > width) {
         if($space.hasClass('Red') || $space.hasClass('Yellow')) {
           return space
@@ -102,6 +104,7 @@ $(() => {
     return cellsToCheck
   }
 
+
   function checkForWin(index) {
     return vectors.some(vector => {
       const startIndex = getStartIndex(index, -vector)
@@ -116,13 +119,12 @@ $(() => {
   function getComputerNo(vectors) {
   //getting a random free space
     const randomIndex = findAvailableSpace(vectors[Math.floor(Math.random() * vectors.length)])
-    if ($cells.eq(vectors).hasClass('Yellow')) {
-      getStartIndex(newIndex, vectors)
-    }  else {
-      randomIndex.addClass('Yellow')
-    }
+    randomIndex.addClass(player2)
+    randomIndex.removeClass('none')
+    $result.text(`${playerOneTurn ? player : player2} wins!`)
     checkForWin(index)
   }
+
   //-------------------------------------------------------------------------GAME----------------------------------------------------------
   function game() {
 
@@ -147,29 +149,29 @@ $(() => {
       if(checkForWin(index)) {
         $onloadScreen.removeClass('hide')
         $scoreScreen.css('display', 'flex')
-        $result.text(`${playerOneTurn ? player2 : player} wins!`)
         scores()
       }
     })
   }
 
+
   function scores() {
     if(time < 20) {
-      $bonusTime.text(time + 1722)
+      $bonusTime.text(--time + 1722)
       $bonusWin.text(1000)
-      $score.text(Math.round(12730 / time + 1722))
+      $score.text(Math.round(12730 / --time + 1722))
     } else  {
-      $bonusTime.text(0)
+      $bonusTime.text(--time + 1722)
       $bonusWin.text(0)
-      clearInterval()
-      $score.text(Math.round(12730 / time))
+      clearInterval(seconds)
+      $score.text(Math.round(12730 / --time + 1722))
     }
   }
 
   function twoPlayer() {
     $availableSpace.addClass(playerOneTurn ? player : player2)
     playerOneTurn = !playerOneTurn
-    console.log('this is player', player )
+    $result.text(`${playerOneTurn ? player2 : player} wins!`)
   }
 
   function computer() {
@@ -201,7 +203,6 @@ $(() => {
   }
 
   function main() {
-    myAudio.play()
     $onloadScreen.addClass('hide')
     $playerScreen.addClass('hide')
     $startButton.on('click', function() {
@@ -210,15 +211,18 @@ $(() => {
       $compPlayerButton.on('click', function(){
         computerPlayer = true
         game()
-        getInterval()
+
         $playerScreen.addClass('hide')
         $onloadScreen.removeClass('hide')
+        restart()
       })
       $twoPlayerButton.on('click', function(){
         game()
-        getInterval()
+        time = 0
+        $time.text(time)
         $playerScreen.addClass('hide')
         $onloadScreen.removeClass('hide')
+        restart()
       })
     })
     $restartButton.on('click', function() {
@@ -230,28 +234,26 @@ $(() => {
 
     $closeButton.on('click', function() {
       $infoScreen.css('display', 'none')
+      restart()
     })
     $closeScoreScreen.on('click', function() {
       $scoreScreen.css('display', 'none')
       restart()
     })
-    $homeButton.on('click', function() {
-      $startScreen.removeClass('hide')
-      $onloadScreen.addClass('hide')
-      restart()
-
-    })
-    $backButton.on('click', function() {
-      $onloadScreen.addClass('hide')
-      $playerScreen.removeClass('hide')
-      restart()
-    })
   }
 
   function restart() {
+    playerOneTurn = player
     $cells.removeClass(player) && $cells.removeClass(player2)
-    $availableSpace.removeClass('shadow-yellow')
-    $availableSpace.removeClass('shadow-red')
+    $cells.addClass('none')
+    clearInterval(seconds)
+    time = 0
+    $time.text(time)
+    seconds = setInterval(function() {
+      time++
+      $time.text(time)
+    }, 1000)
+    console.log(time)
   }
 
   main()

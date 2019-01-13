@@ -198,4 +198,15 @@ $(() => {
 
   game()
 
+  // function getComputerNo(vectors) {
+  // //getting a random free space
+  //   const randomIndex = findAvailableSpace(vectors[Math.floor(Math.random() * vectors.length)])
+  //   if ($cells.eq(vectors).hasClass('Yellow')) {
+  //     getStartIndex(newIndex, vectors)
+  //   }  else {
+  //     randomIndex.addClass('Yellow')
+  //   }
+  //   checkForWin(index)
+  // }
+
 })
