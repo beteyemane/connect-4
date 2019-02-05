@@ -30,6 +30,7 @@ $(() => {
   const myAudio = new Audio('./audio/music.wav')
   const audioMouseover = new Audio('./audio/mouseover.wav')
   const audioClick = new Audio('./audio/click.wav')
+  let cellsToCheck
 
   const player = 'Red'
   const player2 = 'Yellow'
@@ -58,7 +59,7 @@ $(() => {
   $soundButton.on('click', function() {
     audioClick.muted = true
     audioMouseover.muted = true
-    $soundButton.text('Mute')
+    $soundButton.text('X')
   })
 
   //---------------------------------------------------------------------MAKE GRID---------------------------------------------------------
@@ -101,14 +102,15 @@ $(() => {
     if (!($cells.eq(newIndex)).hasClass(playerOneTurn ? player : player2)) return index
   }
 
+  //if a square is yellow then go to the nexxt available space next to yellow
+
   function getFourCells(index, vector) {
-    const cellsToCheck = []
+    cellsToCheck = []
     for (let i = 0; i < 4; i++) {
       cellsToCheck.push($cells.eq(index+(vector * i)))
     }
     return cellsToCheck
   }
-
 
   function checkForWin(index) {
     return vectors.some(vector => {
@@ -120,9 +122,10 @@ $(() => {
     })
   }
 
+  console.log(getFourCells())
   //----------------------------------------------------------------GET RANDOM CHOICE----------------------------------------------------
   function getComputerNo(vectors) {
-  //getting a random free space
+    //getting a random free space
     const randomIndex = findAvailableSpace(vectors[Math.floor(Math.random() * vectors.length)])
     setTimeout(function() {
       randomIndex.addClass(player2)
@@ -139,6 +142,7 @@ $(() => {
 
     $grid.on('click', '.circle.none', function() {
       audioClick.play()
+
       const circle = $(this).data('circle')
       $availableSpace = findAvailableSpace(circle)
       $availableSpace.removeClass('none')
@@ -162,6 +166,14 @@ $(() => {
     })
   }
 
+  //   const result = true
+  //   for (let i = 0; i < 3; i++) {
+  //     if (cellsToCheck[i] === 3) {
+  //         result = false;
+  //         break;
+  //     }
+  // }
+  // console.log(result);
 
   function scores() {
     if(time < 20) {
@@ -261,7 +273,6 @@ $(() => {
       time++
       $time.text(time)
     }, 1000)
-    console.log(time)
   }
 
   main()
