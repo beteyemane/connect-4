@@ -56,10 +56,19 @@ $(() => {
 
   // -------------------------------------------------------------------AUDIO--------------------------------------------------------------
 
+  audioClick.muted = false
+  audioMouseover.muted = false
+
   $soundButton.on('click', function() {
-    audioClick.muted = true
-    audioMouseover.muted = true
-    $soundButton.text('X')
+    if(audioClick.muted === false && audioMouseover.muted === false) {
+      audioClick.muted = true
+      audioMouseover.muted = true
+      $soundButton.find('i').removeClass('fas fa-volume-up').addClass('fas fa-volume-mute')
+    } else {
+      audioClick.muted = false
+      audioMouseover.muted = false
+      $soundButton.find('i').addClass('fas fa-volume-up')
+    }
   })
 
   //---------------------------------------------------------------------MAKE GRID---------------------------------------------------------
