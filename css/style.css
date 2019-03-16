@@ -119,7 +119,7 @@ span {
 
 .start-screen {
   width: 1400px;
-  height: 700px;
+  height: 600px;
   display: flex;
   justify-content: space-between;
 
@@ -133,7 +133,7 @@ span {
   /* border: 1.6px solid black; */
   justify-content: center;
   display: flex;
-  margin: 120px 0;
+  margin: 80px 0;
   background: white;
   font-size: 45px;
 }
@@ -154,6 +154,7 @@ span {
 .picture-play {
   display: flex;
   justify-content: space-around;
+  padding: 0 190px;
 }
 
 .info, .sound, .restart, .home, .back {
@@ -211,7 +212,7 @@ display: flex;
   align-items: center;
   display: flex;
   width: 1200px;
-  height: 700px;
+  height: 600px;
 }
 
 .score-screen {
