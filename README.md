@@ -60,22 +60,13 @@ I then moved onto the win condition. This was done by first checking if the spac
   }
  ```
 
+### Challenges 
+
+The biggest challenge was how to approach the win condition. I initially created conditional statments to determine the wins but I found that not only was the code far from DRY, but due to the length this caused issues when firing up the text editor. So I took a visual approach to figure out this problem and drew out a connect-4 board on a white board. I then had a clearer understanding on how to check for classes that are four in a row.
+
 ### Wins
 
-Once the basic functionality was up and running, I decided I wanted to include an AI version so that players can play against the computer. 
-
- ```
-  function getComputerNo(vectors) {
-    //getting a random free space
-    const randomIndex = findAvailableSpace(vectors[Math.floor(Math.random() * vectors.length)])
-    setTimeout(function() {
-      randomIndex.addClass(player2)
-    }, 1000)
-    randomIndex.removeClass('none')
-    $result.text(`${playerOneTurn ? player : player2} wins!`)
-    checkForWin(index)
-  }
-```
+Once the basic functionality was up and running, I would like to make the game a bit more fun and give players a chance to win points. I did this by firstly adding a setInterval function when the game loads which counts up every second, and if the player wins in under 20 seconds, the receive a points as 'bonus time' of 1722 points plus the time it took them to win. This is then divided from the standard points of 12730.
 
 Scores
 ```
@@ -92,10 +83,8 @@ Scores
     }
   }
  ```
- 
-### Challenges 
-
-The biggest challenge was how to approach the win condition. I initially created conditional statments to determine the wins but I found that not only was the code far from DRY, but due to the length this caused issues when firing up the text editor. So I took a visual approach to figure out this problem and drew out a connect-4 board on a white board. I then had a clearer understanding on how to check for classes that are four ina row.
 
 ### Future features
-If I had more time, I would have liked to add a scoreboard and possibly different levels where the game is played against the clock. I would have also like to have added a home and back button.
+If I had more time, I would've like to expand on my AI version of my game. Currently on the player vs computer mode, the computer generates a random move. I would like to make it so that the computer 
+
+I would have liked to add a scoreboard and possibly different levels where the game is played against the clock. I would have also like to have added a home and back button.
