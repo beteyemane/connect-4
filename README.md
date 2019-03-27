@@ -46,7 +46,7 @@ The first step was to create a basic grid layout with jQuery. As Connect-4 tradi
     $result.text(`${playerOneTurn ? player2 : player} wins!`)
   }
  ```
-The next step was to ensure that the players can only add the counters on the lowest available space. To do so I had to create a functions that checks the current space of that the user has clicked on and 
+The next step was to ensure that the players can only add the counters on the lowest available space. To do so I had to create a functions that takes the index of the current space that the user has clicked on and loops through that column to find a 'circle' that has a class of either Red or Yellow. If so, then the counter will be added to the next space above it.
 
 ```
   function findAvailableSpace(circle) {
@@ -68,7 +68,7 @@ The next step was to ensure that the players can only add the counters on the lo
   }
 ```
 
-For the win condition, I created a function which checks if the counter placed has another counter of the same player, next to it. If it does, it then checks that counter. This is done by pushing the player's countter in an empty array which then loops 4 times. When there are four players of the same class, the winner is announced.
+For the win condition, I created a function which checks if the counter placed has another counter of the same player, next to it. If it does, it then checks that counter. This is done by pushing the player's counter in an empty array which then loops 4 times. When there are four counters of the same class in the array, the winner is determined.
 
 ```
   function getFourCells(index, vector) {
