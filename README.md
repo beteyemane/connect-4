@@ -46,29 +46,9 @@ The first step was to create a basic grid layout with jQuery. As Connect-4 tradi
     $result.text(`${playerOneTurn ? player2 : player} wins!`)
   }
  ```
-The next step was to ensure that the players can only add the counters on the lowest available space. To do so I had to create a functions that takes the index of the current space that the user has clicked on and loops through that column to find a 'circle' that has a class of either Red or Yellow. If so, then the counter will be added to the next space above it.
+The next step was to ensure that the players can only add the counters on the lowest available space. To do so I had to create a function that takes the index of the current space that the user has clicked on and loops through that column to find a 'circle' that has a class of either Red or Yellow. If so, then the counter will be added to the next space above it.
 
-```
-  function findAvailableSpace(circle) {
-    space = $(`.circle[data-circle='${circle}']`)
-    for (let i =  circle; i <= width ; i += columns) {
-      $space = $(`.circle[data-circle='${i + columns}']`)
-      $nextSpace = $(`.circle[data-circle='${i + columns + columns}']`)
-      if (circle >= 35) {
-        return space
-      }
-      if($nextSpace.hasClass('Red') || $nextSpace.hasClass('Yellow') || i + columns + columns > width) {
-        if($space.hasClass('Red') || $space.hasClass('Yellow')) {
-          return space
-        }
-        return $space
-      }
-    }
-    return null
-  }
-```
-
-For the win condition, I created a function which checks if the counter placed has another counter of the same player, next to it. If it does, it then checks that counter. This is done by pushing the player's counter in an empty array which then loops 4 times. When there are four counters of the same class in the array, the winner is determined.
+I then moved onto the win condition. This was done by first checking if the space that has been selected has another counter of the same class in all the directions next to it. To check the directions I created an array with sums that are placed against the current space index```  const vectors = [-1, +1, columns-1, columns, columns+1]```. If it does, it then checks that counter. This is done by pushing the player's counter in an empty array which then loops 4 times. When there are four counters of the same class in the array, the winner is determined.
 
 ```
   function getFourCells(index, vector) {
@@ -80,7 +60,7 @@ For the win condition, I created a function which checks if the counter placed h
   }
  ```
 
-Features
+##Features
 
 Scores
 ```
