@@ -60,7 +60,22 @@ I then moved onto the win condition. This was done by first checking if the spac
   }
  ```
 
-##Features
+### Wins
+
+Once the basic functionality was up and running, I decided I wanted to include an AI version so that players can play against the computer. 
+
+ ```
+  function getComputerNo(vectors) {
+    //getting a random free space
+    const randomIndex = findAvailableSpace(vectors[Math.floor(Math.random() * vectors.length)])
+    setTimeout(function() {
+      randomIndex.addClass(player2)
+    }, 1000)
+    randomIndex.removeClass('none')
+    $result.text(`${playerOneTurn ? player : player2} wins!`)
+    checkForWin(index)
+  }
+```
 
 Scores
 ```
@@ -78,19 +93,9 @@ Scores
   }
  ```
  
- Player vs Computer
- ```
-  function getComputerNo(vectors) {
-    //getting a random free space
-    const randomIndex = findAvailableSpace(vectors[Math.floor(Math.random() * vectors.length)])
-    setTimeout(function() {
-      randomIndex.addClass(player2)
-    }, 1000)
-    randomIndex.removeClass('none')
-    $result.text(`${playerOneTurn ? player : player2} wins!`)
-    checkForWin(index)
-  }
-```
+### Challenges 
+
+The biggest challenge was how to approach the win condition. I initially created conditional statments to determine the wins but I found that not only was the code far from DRY, but due to the length this caused issues when firing up the text editor. So I took a visual approach to figure out this problem and drew out a connect-4 board on a white board. I then had a clearer understanding on how to check for classes that are four ina row.
 
 ### Future features
 If I had more time, I would have liked to add a scoreboard and possibly different levels where the game is played against the clock. I would have also like to have added a home and back button.
