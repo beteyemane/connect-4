@@ -9,19 +9,33 @@
 * Javascript (ES6) & jQuery
 * HTML
 * CSS
+* Git | Github
 
 ## My game - Connect 4
 
 ![Screenshot 2019-03-27 at 12 56 05](https://user-images.githubusercontent.com/44004811/55077560-fefc3e00-508f-11e9-84eb-c16cebfc8e90.png)
+
+## Hosted version --> beteyemane.com/connect-4
 
 ### Game Overview
 The game is encompasses the basic Connect 4 aim where the player must be the first to get four in a row either horizontally, vertically or diagonally. The player will also obtain points depending on how quick they win.
 
 ### Game Journey
 1. The game starts with an introductionary page where you have the option to view the instructions on the top left hand corner.
+
+![Screenshot 2019-03-27 at 16 10 09](https://user-images.githubusercontent.com/44004811/55092898-53f97d80-50ab-11e9-9e0d-741feaf2861e.png)
+
 2. The next page gives you the option to play against the computer or with another player.
+
+![Screenshot 2019-03-27 at 16 10 28](https://user-images.githubusercontent.com/44004811/55092903-565bd780-50ab-11e9-988b-a2289d19c8be.png)
+
 3. As soon as you press either of the options, the timer starts and the game is ready to play.
+
+![Screenshot 2019-03-27 at 16 10 40](https://user-images.githubusercontent.com/44004811/55092906-58259b00-50ab-11e9-8d90-146aeb3d80dd.png)
+
 4. Once a player wins, a pop up appears displaying the winner and their score.
+
+![Screenshot 2019-03-27 at 16 13 12](https://user-images.githubusercontent.com/44004811/55092911-59ef5e80-50ab-11e9-921a-ddb84f9b0e4f.png)
 
 ### Process
 The first step was to create a basic grid layout with jQuery. As Connect-4 traditionally is a 7 X 6 game, I opted to append 42 divs as the 'slots' onto a main div that displayed as the board. After this was set up, the next functionality I needed to add was a toggle between the 2 players. I did this by creating a function that adds a class of Red for Player One and Yellow for Player Two which would then get fired on click (on the divs). These classes reflect the colour of 'counters' that get added to diffrenciate between the two players.
@@ -32,10 +46,10 @@ The first step was to create a basic grid layout with jQuery. As Connect-4 tradi
     $result.text(`${playerOneTurn ? player2 : player} wins!`)
   }
  ```
-The next step was to ensure that the players can only add the counters on the lowest available space. To do so 
+The next step was to ensure that the players can only add the counters on the lowest available space. To do so I had to create a functions that checks the current space of that the user has clicked on and 
+
 ```
   function findAvailableSpace(circle) {
-    // console.log(circle)
     space = $(`.circle[data-circle='${circle}']`)
     for (let i =  circle; i <= width ; i += columns) {
       $space = $(`.circle[data-circle='${i + columns}']`)
