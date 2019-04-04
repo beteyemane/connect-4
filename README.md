@@ -85,6 +85,6 @@ Scores
  ```
 
 ### Future features
-If I had more time, I would've like to expand on my AI version of my game. Currently on the player vs computer mode, the computer generates a random move. I would like to make it so that the computer 
+If I had more time, I would've like to expand on my AI version of my game. Currently on the player vs computer mode, the computer generates a random move and to provide more of a challenge to the user, i'd create an algorithm thatmake the computer intelligent. 
 
 I would have liked to add a scoreboard and possibly different levels where the game is played against the clock. I would have also like to have added a home and back button.
